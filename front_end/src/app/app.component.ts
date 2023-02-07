@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-// Import status.service.ts file created
+// Import created services
 import { StatusService } from './shared/status.service';
-// Import app-config.service file created
 import { AppConfigService } from './app-config.service';
 
 @Component({
@@ -20,6 +19,7 @@ export class AppComponent implements OnInit {
   // On app init
   ngOnInit() {
 
+    // THROWING ERRORS, FIGURE OUT RETURNING 200 STATUS CODE FROM BACKEND
     // Get status with statusService object
     /* this.statusService
       .getStatus()
