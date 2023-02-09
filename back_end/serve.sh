@@ -1,4 +1,5 @@
 #!/bin/sh
 
+rm back_end.exe
 go build
-./test_program.exe
+./back_end.exe
