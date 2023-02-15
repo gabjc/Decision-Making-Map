@@ -1,0 +1,53 @@
+package main
+
+//Go has a server built in.
+
+import (
+	//Formatting package
+	"fmt"
+	//Standard Library package containing functionalities including client and server
+	"log"
+	"net/http"
+)
+
+func formHandler(w http.ResponseWriter, r *http.Request) {
+	if err := r.ParseForm(); err != nil {
+		fmt.Fprintf(w, "ParseForm() err: %v", err)
+		return
+	}
+	fmt.Fprintf(w, "POST Request successful")
+	//There's a few ways to declare variables. Regardless of the way you choose, Go is statically typed.
+	//Every variable, imported package, etc. MUST be used at least once.
+	var name string = r.FormValue("name")
+	fmt.Fprintf(w, "Name: %s\n", name)
+	return
+}
+
+func helloHandler(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/hello" {
+		http.Error(w, "404 Not Found", http.StatusNotFound)
+		return
+	}
+	if r.Method != "GET" {
+		http.Error(w, "Method Not Supported", http.StatusNotFound)
+		return
+	}
+	fmt.Fprintf(w, "Hello!!")
+}
+
+func main() {
+
+	fileServer := http.FileServer(http.Dir("./static"))
+	http.Handle("/", fileServer)
+
+	//Request Handler that receives incoming HTTP connections from browsers, clients, API requests
+	http.HandleFunc("/form", formHandler)
+	http.HandleFunc("/hello", helloHandler)
+
+	fmt.Printf("Starting server at port 8080\n")
+	//Listens for HTTP connections on port 80 (usually the default for HTTP traffic)
+	if err := http.ListenAndServe(":8080", nil); err != nil {
+		log.Fatal(err)
+	}
+
+}
