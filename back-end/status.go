@@ -4,7 +4,8 @@ import (
 	"net/http"
 )
 
-func GetStatus(w http.ResponseWriter, r *http.Request) { // FINISH IMPLEMENTING, UN-COMMENT STATUS FETCH IN app.component.ts
+// TODO: finish implement and uncomment the fetch in app.component.ts
+func GetStatus(w http.ResponseWriter, r *http.Request) {
 	/* w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
 	resp := make(map[string]string)

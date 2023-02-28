@@ -1,19 +1,46 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
-	"net/http"
+	//"encoding/json"
+	//"fmt"
+	//"net/http"
 
-	//"github.com/gin-gonic/gin"
-	_ "modernc.org/sqlite"
+	//_ "modernc.org/sqlite"
+	//"gorm.io/driver/sqlite"
+	"gorm.io/driver/sqlite"
+	"gorm.io/gorm"
 )
 
 type User struct {
-	UFID int    `json:"ufid"`
-	Name string `json:"name"`
+	gorm.Model
+	Username string `json:"username"`
+	Password string `json:"password"`
+	Name     string `json:"name"`
 }
 
+var db *gorm.DB
+var err error
+
+func InitDatabase() {
+	// create or open database
+	db, err := gorm.Open(sqlite.Open("database.db"), &gorm.Config{})
+	if err != nil {
+		panic("Cannot connect to DB")
+	}
+
+	// migrate struct schema
+	db.AutoMigrate(&User{})
+
+	// create database entry
+	db.Create(&User{Username: "admin", Password: "password", Name: "Admin Adminton"})
+
+	// read database
+	var aUser User
+	db.First(&aUser, "name = ?", "Admin Adminton") // find a user with name Admin Adminton
+
+}
+
+/*
 func GetUser(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -39,7 +66,4 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(users)
 	fmt.Println(users)
 }
-
-func PostUser(w http.ResponseWriter, r *http.Request) {
-	// IMPLEMENT CREATING A USER WITH A NAME AND UFID
-}
+*/
