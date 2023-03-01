@@ -1,13 +1,11 @@
 package main
 
 import (
-	//"encoding/json"
-	//"fmt"
-	//"net/http"
+	"encoding/json"
+	"net/http"
 
-	//_ "modernc.org/sqlite"
-	//"gorm.io/driver/sqlite"
 	"github.com/glebarez/sqlite"
+	"github.com/gorilla/mux"
 	"gorm.io/gorm"
 )
 
@@ -21,49 +19,31 @@ type User struct {
 var db *gorm.DB
 var err error
 
-func InitDatabase() {
-	// create or open database
-	db, err := gorm.Open(sqlite.Open("database.db"), &gorm.Config{})
+func InitDB() {
+	db, err = gorm.Open(sqlite.Open("database.db"), &gorm.Config{})
 	if err != nil {
 		panic("Cannot connect to DB")
 	}
-
-	// migrate struct schema
 	db.AutoMigrate(&User{})
-
-	// create database entry
-	db.Create(&User{Username: "admin", Password: "password", Name: "Admin Adminton"})
-
-	// read database
-	var aUser User
-	db.First(&aUser, "name = ?", "Admin Adminton") // find a user with name Admin Adminton
-
 }
 
-/*
 func GetUser(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
-	var users []User
+	username := mux.Vars(r)["username"]
+	var user User
+	db.First(&user, "username = ?", username)
 
-	data, err := db.Query("SELECT * FROM mytable")
-	if err != nil {
-		fmt.Println(err.Error())
-		panic("Cannot select data from DB")
-	}
-
-	defer data.Close()
-
-	for data.Next() {
-		var user User
-		err := data.Scan(&user.UFID, &user.Name)
-		if err != nil {
-			panic(err.Error())
-		}
-		users = append(users, user)
-	}
-
-	json.NewEncoder(w).Encode(users)
-	fmt.Println(users)
+	json.NewEncoder(w).Encode(user)
 }
-*/
+
+func PostUser(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+
+	params := mux.Vars(r)
+	user := User{Username: params["username"], Password: params["password"], Name: params["name"]}
+	json.NewDecoder(r.Body).Decode(&user)
+	db.Create(&user)
+
+	json.NewEncoder(w).Encode(user)
+}
