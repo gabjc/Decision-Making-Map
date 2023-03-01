@@ -1,7 +1,5 @@
 package main
 
-//"github.com/gin-gonic/gin"
-
 type votedLocation struct {
 	currentVote int    `json:"vote"`
 	voteName    string `json:"vote_name"`
