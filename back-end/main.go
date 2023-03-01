@@ -22,8 +22,8 @@ func InitRouter() {
 	r := mux.NewRouter()
 
 	r.HandleFunc("/status", GetStatus).Methods("GET")
-	r.HandleFunc("/database/user/get/{username}", GetUser).Methods("GET")
-	r.HandleFunc("/database/user/post/{username}/{password}/{name}", PostUser).Methods("POST")
+	r.HandleFunc("/user/get/{username}", GetUser).Methods("GET")
+	r.HandleFunc("/user/post/{username}/{password}/{name}", PostUser).Methods("POST")
 
 	log.Fatal(http.ListenAndServe(":9000", r))
 }
