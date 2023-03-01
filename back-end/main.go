@@ -5,11 +5,13 @@ TODO:
 	- encrypting/decrypting passwords
 	- renaming this module with github/gabjc instead of github/joshual55
 	- conditional compilation and combining frontend and backend when compiling
+	- combine the .md and .txt README files
 */
 
 // go unit tests
+// cypress testing
 // install angular and karma (testing) cli globally => npm install -g @angular/clinpm, npm install -g karma-cli
-// status function
+// finish implementing status function
 
 import (
 	"log"
