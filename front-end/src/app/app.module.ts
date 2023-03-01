@@ -11,25 +11,25 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatInputModule } from '@angular/material/input';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
-import { SignInComponent } from './sign-in/sign-in.component';
+import { signinComponent } from './signin/signin.component';
 import { HomeComponent } from './home/home.component';
 
-const appRoutes: Routes = [
+const routes: Routes = [
   { path: '', component: HomeComponent },
-  {path: 'Login', component: LoginComponent},
-  {path: 'SignIn', component: SignInComponent}
+  {path: 'login', component: LoginComponent},
+  {path: 'signin', component: signinComponent}
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    SignInComponent,
+    signinComponent,
     HomeComponent
 
   ],
   imports: [
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(routes),
     MatSlideToggleModule,
     MatInputModule,
     BrowserModule,

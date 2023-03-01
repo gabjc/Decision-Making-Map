@@ -1,1 +1,65 @@
-<p>login works!</p>
+<p>login with your credentials</p>
+<style>
+    .content {
+      display: flex;
+      margin: 82px auto 32px;
+      padding: 0 16px;
+      max-width: 960px;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* .card {
+      all: unset;
+      border-radius: 4px;
+      border: 1px solid #eee;
+      background-color: #fafafa;
+      height: 40px;
+      width: 200px;
+      margin: 0 8px 16px;
+      padding: 16px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.2s ease-in-out;
+      line-height: 24px;
+    } */
+
+    .login-form {
+    background-color: #1976d2;
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+    }
+  
+    .login-full-width {
+    width: 100%;
+    }
+</style>
+
+<div class="content" role="main">
+  
+    <!-- Highlight Card -->
+    <div class="card highlight-card card-small">
+      <span>Welcom to (insert app title here)</span>
+    </div>
+  
+    <!-- Resources -->
+    <h2>Login</h2>
+    <form class="login-form">
+      <mat-form-field class="login-full-width">
+        <mat-label>Username</mat-label>
+        <input matInput type="email">
+      </mat-form-field>
+    
+      <mat-form-field class="login-full-width">
+        <mat-label>Password</mat-label>
+        <input matInput type="password">
+      </mat-form-field>
+    </form>
+    <a class="card"  href="">
+        <span>Return Home</span>
+      </a>
+  
+    </div>

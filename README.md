@@ -1,14 +1,29 @@
 # Decision Making Map
 
+## Project Information
 
-Project Name: Decision Making Map
+#### Project Name:
+Decision Making Map
 
-Project Description:
-Location-based collaborative decision making app. User will be able to input a location, distance from that location, and what they are looking for (restaurant, entertainment, etc. to find locations of interest. The app will allow users to join group itineraries to see selected locations and collaboratively decide on where they wann to go. Users will be able to chat and add or remove locations of interest from the group intinerary.
+#### Project Description:
+Location-based collaborative decision making map application. The user will be able to input a start location, a distance from that location, and what they are looking for (restaurant, entertainment, etc), and the map will update with places that fit the criteria. Users will be able to save places and times in itineraries, and share these itineraries with each other to create group plans. Users will also be able to chat and update their itineraries.
 
-Current possible functionality:
--Accounts that will keep track of itineraries that users were invited to or they created.
--Users can click on tabs to seamlessly switch to other itineraries.
+#### Members:
+Tony Gupta (frontend), Lucas Mueller (frontend), Joshua Lamb (backend), Gabriel Cortez (backend)
 
-Members:
-Tony Gupta (front-end), Lucas Mueller (front-end), Joshua Lamb (back-end), Gabriel Cortez (back-end)
+## Running the Project Locally
+
+#### To Install
+1. Download nvm, Node.js, npm, and Golang
+2. Run "go get./..." in root directory to install Go packages
+3. Run "npm i" in ./front-end to install Node packages
+
+#### To Run Backend
+cd ./back-end
+
+./serve.sh
+
+#### To Run Frontend
+cd ./front-end
+
+ng serve OR ng test
