@@ -1,10 +1,11 @@
 package main
 
-// GENERAL:
-// MOVE GITHUB USER STORY WHEN EVERYTHING IS COMPLETED
-// FIGURE OUT AUTO-INSTALLING FROM go.mod AND UPDATE README.TXT
-// HAVE SERVE.SH NOT DELETE AND REBUILD EXE?
-// LOOK INTO CYPRESS
+/*
+TODO:	*general stuff*
+	- encrypting/decrypting passwords
+	- conditional compilation and combining frontend and backend when compiling
+	- install angular and karma (testing) cli globally => npm install -g @angular/clinpm, npm install -g karma-cli
+*/
 
 import (
 	"log"
@@ -13,19 +14,19 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func InitRouter() { // FIGURE OUT CONDITIONAL COMPILATION AND CORS SETTINGS FROM LECTURE EXAMPLE
+func InitRouter() {
 	r := mux.NewRouter()
 
 	r.HandleFunc("/status", GetStatus).Methods("GET")
-	r.HandleFunc("/database/get", GetUser).Methods("GET")
-	r.HandleFunc("/database/post/{ufid}/{name}", PostUser).Methods("POST")
+	r.HandleFunc("/user/get/{username}", GetUser).Methods("GET")
+	r.HandleFunc("/user/post/{username}/{password}/{name}", PostUser).Methods("POST")
+	r.HandleFunc("/itinerary/get/{id}", GetUser).Methods("GET")
+	r.HandleFunc("/itinerary/post/{name}/{address}/{radius}", PostUser).Methods("POST")
 
 	log.Fatal(http.ListenAndServe(":9000", r))
 }
 
 func main() {
-	InitDatabase() // MOVE DB FUNC CALL & MERGE database.go?
-	// OPEN & CLOSE DB ON A CALL-BY-CALL BASIS?
-	// IMPLEMENT GORM?
+	InitDB()
 	InitRouter()
 }
