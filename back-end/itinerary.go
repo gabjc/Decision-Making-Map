@@ -15,14 +15,14 @@ type votedLocation struct {
 }
 
 type Itinerary struct {
-	ItineraryID    string         `json:"id"`
+	//ItineraryID    string        `json:"id"`
 	Name           string         `json:"name"`
 	Address        string         `json:"address"`
 	Radius         string         `json:"radius"`
 	savedLocations map[string]int `json:"saved_locations"`
 }
 
-// TODO: finish implementing and testing
+// FIXME: finish implementing, add test file and functions
 func GetItinerary(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -37,7 +37,7 @@ func PostItinerary(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	params := mux.Vars(r)
-	itinerary := Itinerary{ItineraryID: params["id"], Name: params["name"], Address: params["address"], Radius: params["radius"]} //, savedLocations: params["saved_locations"]
+	itinerary := Itinerary{ /*ItineraryID: params["id"],*/ Name: params["name"], Address: params["address"], Radius: params["radius"]} //, savedLocations: params["saved_locations"]
 	json.NewDecoder(r.Body).Decode(&itinerary)
 	db.Create(&itinerary)
 

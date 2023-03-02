@@ -1,28 +1,45 @@
-Detail work you've completed in Sprint 2
+## Work Completed
 
-List unit tests and Cypress test for frontend
+**Josh Lamb** - combined README.md and README.txt, replaced pure SQL with GORM, added how to auto-install Go packages to README, created Go unit test for "user/get" route
+**Gabriel Cortez** - tried to figure out how to implement a way to store the multiple variables that a user owns within a user's struct, developed the itinerary struct. Made the unit test for PostUser.
+**Tony Gupta** - 
+**Luke Mueller** - 
 
-List unit tests for backend
+## Frontend Unit Tests and Cypress Tests
 
-Add documentation for your backend API 
+ur stuff here
 
-# Frontend
+## Backend Unit Tests
 
+We created unit tests for both PostUser and GetUser functions, which implement the "user/post" and "user/get" routes respectively, however a current issue is causing both functions to result in a "FAIL" with the error message "invalid memory address or nil pointer dereference." This will be fixed in the future.
 
+## Backend API Documentation
+This API assumes that all responses are made with `Content-Type: application/json`
+There are currently 2 functioning routes to interact with the backend, specifically for creating a new user and finding a specific user.
 
+**1.** /user/get/{username}
+- description: attempts to find a specific user from the database
+- requires: `[username: <string>]`
+- returns: the user's full database entry, including their username, password, and name on success, else a blank entry with the previous variables as empty strings on failure
 
-# Backend
-## Documentation
-Within the backend API, there are two functions that are used to "GET" or "POST" a user for the database.
+**2.** /user/post/{username}/{password}/{name}
+- description: creates a user in the database
+- requires: `[username: <string>, password: <string>, name: <string>]`
+- returns: none
 
+There are currently 3 additional routes that are mostly written, but not fully implemented or tested.
 
-**GetUser(w http.ResponseWriter, r *http.Request)*** is used to get the user from the database, returning the username of the user
+**3.** /status
+- description: checks the status of the backend
+- requires: `none`
+- returns: status code 200
 
-  
+**4.** /itinerary/get/{id}
+description: attempts to find a specific itinerary from the database
+- requires: `[id: <int>]`
+- returns: the itinerary's full database entry, including the ID, name, address, radius, and saved locations
 
-**PostUser(w http.ResponseWriter, r *http.Request)*** is used to post the user to the database. It currently requires Username, Password, and Name to be provided so that the user will be posted.
-
-These functions will be implemented to the itinerary struct in the future so the frontend can create or get a certain itinerary dependent on the itineraries a user owns.
-
-## Unit Tests
-We created unit tests for both PostUser and GetUser functions, however we find an issue with both functions resulting in a "FAIL" with the error message "invalid memory address or nil pointer dereference." This will be fixed in the future.
+**5.** /itinerary/post/{name}/{address}/{radius}
+- description: creates an itinerary in the database
+- requires: `[name: <string>, address: <string>, radius: <string>]`
+- returns: none
