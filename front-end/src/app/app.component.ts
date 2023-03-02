@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 // Import created services
 import { StatusService } from './shared/status.service';
 import { AppConfigService } from './app-config.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -14,22 +15,14 @@ export class AppComponent implements OnInit {
   status = 'DOWN';
 
   // App component object has StatusService object and AppConfigService object
-  constructor(private statusService: StatusService, private appConfigService: AppConfigService) { }
+  constructor(private statusService: StatusService, private appConfigService: AppConfigService, private http: HttpClient) { }
 
   // On app init
   ngOnInit() {
-
-    // THROWING ERRORS, FIGURE OUT RETURNING 200 STATUS CODE FROM BACKEND
-    // Get status with statusService object
-    /* this.statusService
-      .getStatus()
-      .then((result: any) => {
-        this.status = result.status;
-      }); */
-
-    // Get database info with appConfigService object
-    var databaseObservable = this.appConfigService.getDatabase()
-    console.log(databaseObservable);          // LOGGING OBSERVABLE, FIGURE OUT HOW TO GET DATA IN APP-CONFIG & RETURN CLEANER DATA
+    // FIGURE OUT CORS POLICY FOR DISPLAYING DATA
+    this.http.get('http://localhost:9000/user/get/admin').subscribe(res => {
+      console.log('res', res)
+    })
   }
 
 }

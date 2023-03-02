@@ -4,14 +4,14 @@
 
 **Gabriel Cortez** - tried to figure out how to implement a way to store the multiple variables that a user owns within a user's struct, developed the itinerary struct. Made the unit test for PostUser.
 
-**Tony Gupta** - 
+**Tony Gupta** - worked on html for pages (used material to create forms for login and register), created public and protected angular modules to implement later functionality preventing users who aren't logged in to access the main app content, buggy ts button logic to send users to dashboard.
 
-**Luke Mueller** - 
+**Lucas Mueller** - created the system for routing our website between multiple pages, wrote cypress tests to make sure the features we have implemented so far are behaving as expected.
 
 
 ## Frontend Unit Tests and Cypress Tests
 
-ur stuff here
+To test the front end, we wrote a few tests that check to make sure the angular components we are using exist and have all the right values. In addition, we wrote tests that check that the routing between the different pages is functioning properly.
 
 ## Backend Unit Tests
 

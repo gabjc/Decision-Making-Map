@@ -13,5 +13,5 @@ func InitDB() {
 	if err != nil {
 		panic("Cannot connect to DB")
 	}
-	db.AutoMigrate(&User{}) // TODO: add struct schema for itineraries
+	db.AutoMigrate(&User{}) // TODO: add the struct for itineraries
 }
