@@ -16,10 +16,11 @@ Add documentation for your backend API
 Within the backend API, there are two functions that are used to "GET" or "POST" a user for the database.
 
 
-**GetUser(w http.ResponseWriter, r *http.Request)** is used to get the user from the database, returning the username of the user
+**GetUser(w http.ResponseWriter, r *http.Request)*** is used to get the user from the database, returning the username of the user
 
+  
 
-**PostUser(w http.ResponseWriter, r *http.Request)** is used to post the user to the database. It currently requires Username, Password, and Name to be provided so that the user will be posted.
+**PostUser(w http.ResponseWriter, r *http.Request)*** is used to post the user to the database. It currently requires Username, Password, and Name to be provided so that the user will be posted.
 
 These functions will be implemented to the itinerary struct in the future so the frontend can create or get a certain itinerary dependent on the itineraries a user owns.
 
