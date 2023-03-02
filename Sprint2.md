@@ -11,7 +11,7 @@
 
 ## Frontend Unit Tests and Cypress Tests
 
-to test the fron end I wrote a few tests that check to make sure the angular components we are using exist and have all the right values. in addition I wrote tests that check that the routing between the different pages is functioning peoperly.
+To test the fron end, we wrote a few tests that check to make sure the angular components we are using exist and have all the right values. In addition, we wrote tests that check that the routing between the different pages is functioning properly.
 
 ## Backend Unit Tests
 
