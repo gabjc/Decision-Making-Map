@@ -1,17 +1,14 @@
 package main
 
 /*
-TODO:
+TODO:	*sooner*
+	- debug all http unit tests
+	- finish implementing status function and uncomment the fetch in app.component.ts
+TODO:	*later*
 	- encrypting/decrypting passwords
-	- renaming this module with github/gabjc instead of github/joshual55
 	- conditional compilation and combining frontend and backend when compiling
-	- combine the .md and .txt README files
+	- install angular and karma (testing) cli globally => npm install -g @angular/clinpm, npm install -g karma-cli
 */
-
-// go unit tests
-// cypress testing
-// install angular and karma (testing) cli globally => npm install -g @angular/clinpm, npm install -g karma-cli
-// finish implementing status function
 
 import (
 	"log"
