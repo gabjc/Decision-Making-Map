@@ -6,7 +6,7 @@ import (
 
 	//"github.com/glebarez/sqlite"
 	"github.com/gorilla/mux"
-	//"gorm.io/gorm"
+	"gorm.io/gorm"
 )
 
 type User struct {
@@ -61,6 +61,7 @@ func (s *set) Contains(value string) bool {
 }
 */
 
+// TODO: add more routes for users and itineraries that return more specific info, not everything
 func GetUser(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 

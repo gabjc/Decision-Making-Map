@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-// TODO: finish debugging HTTP tests
+// FIXME: finish debugging HTTP tests
 
 // test getting the "admin" user specfically...will fail if admin is missing from db
 func TestGetUser(t *testing.T) {
