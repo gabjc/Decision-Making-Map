@@ -18,3 +18,7 @@ func GetStatus(w http.ResponseWriter, r *http.Request) {
 	w.Write(jsonResp)
 	return */
 }
+
+func enableCors(w *http.ResponseWriter) {
+	(*w).Header().Set("Access-Control-Allow-Origin", "*")
+}

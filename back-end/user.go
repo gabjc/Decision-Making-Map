@@ -63,6 +63,7 @@ func (s *set) Contains(value string) bool {
 
 // TODO: add more routes and more specific routes
 func GetUser(w http.ResponseWriter, r *http.Request) {
+	enableCors(&w)
 	w.Header().Set("Content-Type", "application/json")
 
 	username := mux.Vars(r)["username"]
@@ -73,6 +74,7 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func PostUser(w http.ResponseWriter, r *http.Request) {
+	enableCors(&w)
 	w.Header().Set("Content-Type", "application/json")
 
 	params := mux.Vars(r)
