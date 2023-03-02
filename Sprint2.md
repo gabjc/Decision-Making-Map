@@ -1,9 +1,13 @@
 ## Work Completed
 
 **Josh Lamb** - combined README.md and README.txt, replaced pure SQL with GORM, added how to auto-install Go packages to README, created Go unit test for "user/get" route
+
 **Gabriel Cortez** - tried to figure out how to implement a way to store the multiple variables that a user owns within a user's struct, developed the itinerary struct. Made the unit test for PostUser.
+
 **Tony Gupta** - 
+
 **Luke Mueller** - 
+
 
 ## Frontend Unit Tests and Cypress Tests
 
