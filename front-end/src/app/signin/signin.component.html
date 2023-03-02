@@ -1,1 +1,149 @@
 <p>Create an account</p>
+<style>
+    .content {
+      display: flex;
+      margin: 82px auto 32px;
+      padding: 0 16px;
+      max-width: 960px;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 16px;
+    }
+    .content {
+      display: flex;
+      margin: 82px auto 32px;
+      padding: 0 16px;
+      max-width: 960px;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .card {
+      all: unset;
+      border-radius: 4px;
+      border: 1px solid #eee;
+      background-color: #fafafa;
+      height: 40px;
+      width: 200px;
+      margin: 0 8px 16px;
+      padding: 16px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.2s ease-in-out;
+      line-height: 24px;
+    }
+
+    .card-container .card:not(:last-child) {
+      margin-right: 0;
+    }
+  
+    .card.card-small {
+      height: 16px;
+      width: 168px;
+    }
+  
+    .card-container .card:not(.highlight-card) {
+      cursor: pointer;
+    }
+  
+    .card-container .card:not(.highlight-card):hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
+    }
+  
+    .card-container .card:not(.highlight-card):hover .material-icons path {
+      fill: rgb(105, 103, 103);
+    }
+  
+    .card.highlight-card {
+      background-color: #1976d2;
+      color: white;
+      font-weight: 600;
+      border: none;
+      width: auto;
+      min-width: 30%;
+      position: relative;
+    }
+  
+    .card.card.highlight-card span {
+      margin-left: 1px;
+    }
+  
+    a,
+    a:visited,
+    a:hover {
+      color: #1976d2;
+      text-decoration: none;
+    }
+  
+    a:hover {
+      color: #125699;
+    }
+
+    .login-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+    }
+  
+    .login-full-width {
+    width: 100%;
+    }
+</style>
+
+<div class="content" role="main">
+  
+    <!-- Highlight Card -->
+    <div class="card highlight-card card-small">
+      <span>Welcome to (insert app title here)</span>
+    </div>
+  
+    <!-- Resources -->
+    <h2>Create Account</h2>
+    <div>
+      <mat-card>
+        <form class="login-form">
+          <mat-form-field class="login-full-width">
+              <mat-label>Name</mat-label>
+              <input matInput>
+          </mat-form-field>
+          
+          <mat-form-field class="login-full-width">
+              <mat-label>Username</mat-label>
+              <input matInput type="email">
+          </mat-form-field>
+        
+          <mat-form-field class="login-full-width">
+            <mat-label>Password</mat-label>
+            <input matInput type="password">
+          </mat-form-field>
+
+          <button mat-raised-button type="submit" >Submit</button>
+
+        </form>        
+      </mat-card>
+    </div>
+
+    <br>
+    
+    <div class="content" role="main">
+
+      <div class="card-container">
+        <a class="card" routerLink="">
+          <span>Return Home</span>
+        </a>
+      </div>
+
+    </div>
+    
+    
+  
+    </div>

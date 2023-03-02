@@ -15,8 +15,9 @@ Tony Gupta (frontend), Lucas Mueller (frontend), Joshua Lamb (backend), Gabriel 
 
 #### To Install
 1. Download nvm, Node.js, npm, and Golang
-2. Run "go get./..." in root directory to install Go packages
-3. Run "npm i" in ./front-end to install Node packages
+2. From anywhere, run "go env -w GO111MODULE=on"
+2. From root dir, run  "go get./..." to install Go packages
+3. From ./front-end, run "npm i" to install Node packages
 
 #### To Run Backend
 cd ./back-end
