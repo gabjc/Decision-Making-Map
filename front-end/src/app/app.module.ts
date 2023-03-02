@@ -9,6 +9,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatInputModule } from '@angular/material/input';
+import {  MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { signinComponent } from './signin/signin.component';
@@ -32,10 +36,13 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     MatSlideToggleModule,
     MatInputModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatCardModule,
     BrowserModule,
     AppRoutingModule,
 	  HttpClientModule,
-   BrowserAnimationsModule
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
