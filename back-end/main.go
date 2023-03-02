@@ -17,6 +17,7 @@ import (
 func InitRouter() {
 	r := mux.NewRouter()
 
+	// TODO: make usernames only take emails, remove non-emails in the db
 	r.HandleFunc("/status", GetStatus).Methods("GET")
 	r.HandleFunc("/user/get/{username}", GetUser).Methods("GET")
 	r.HandleFunc("/user/post/{username}/{password}/{name}", PostUser).Methods("POST")
