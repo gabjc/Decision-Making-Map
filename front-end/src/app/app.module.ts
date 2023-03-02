@@ -1,48 +1,43 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { HttpClientModule } from '@angular/common/http'; 
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
+import { JwtModule } from '@auth0/angular-jwt';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatInputModule } from '@angular/material/input';
-import {  MatFormFieldModule } from '@angular/material/form-field';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
+//JWT token behavior—local storage (decision_making_map is the key name, the actual string of gibberish will be the value paired to it)
+export const LOCALSTORAGE_TOKEN_KEY = 'decision_making_map';
+//TokenGetter for key
+export function tokenGetter() {
+  return localStorage.getItem(LOCALSTORAGE_TOKEN_KEY);
+}
 
-import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { signinComponent } from './signin/signin.component';
-import { HomeComponent } from './home/home.component';
-
-const routes: Routes = [
-  { path: '', component: HomeComponent },
-  {path: 'login', component: LoginComponent},
-  {path: 'signin', component: signinComponent}
-];
 
 @NgModule({
   declarations: [
-    AppComponent,
-    LoginComponent,
-    signinComponent,
-    HomeComponent
-
+    AppComponent
   ],
   imports: [
-    RouterModule.forRoot(routes),
-    MatSlideToggleModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    MatCardModule,
     BrowserModule,
-    AppRoutingModule,
+    BrowserAnimationsModule,
 	  HttpClientModule,
-    BrowserAnimationsModule
+    //Import module routes
+    AppRoutingModule,
+    //Material for popup notifs
+    MatSnackBarModule,
+    //JWT import
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ['localhost:4200', 'localhost:9000']
+      }
+    })
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

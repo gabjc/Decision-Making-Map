@@ -1,4 +1,4 @@
-<p>login with your credentials</p>
+<p>Create an account</p>
 <style>
     .content {
       display: flex;
@@ -107,21 +107,37 @@
     </div>
   
     <!-- Resources -->
-    <h2>Login</h2>
+    <h2>Create Account</h2>
     <div>
       <mat-card>
-        <form class="login-form">
+        <form [formGroup]="registerForm" (ngSubmit)="register()">
+          
+          <mat-form-field class="login-full-width">
+            <mat-label>Name</mat-label>
+            <input matInput type="text" formControlName="username">
+            <mat-error
+              *ngIf="this.registerForm.get('username')?.touched && this.registerForm.get('username')?.hasError('required')">
+              Name is required</mat-error>
+          </mat-form-field>
+          
           <mat-form-field class="login-full-width">
             <mat-label>Username</mat-label>
-            <input matInput type="email">
+            <input matInput type="email" formControlName="email">
+            <mat-error *ngIf="this.registerForm.get('email')?.touched && this.registerForm.get('email')?.hasError('required')">
+              Email is required</mat-error>
+            <mat-error *ngIf="this.registerForm.get('email')?.touched && this.registerForm.get('email')?.hasError('email')">
+              Must be a valid Email</mat-error>
           </mat-form-field>
         
           <mat-form-field class="login-full-width">
             <mat-label>Password</mat-label>
-            <input matInput type="password">
+            <input matInput type="password" formControlName="password">
+            <mat-error
+            *ngIf="this.registerForm.get('password')?.touched && this.registerForm.get('password')?.hasError('required')">
+            Password is required</mat-error>
           </mat-form-field>
 
-          <button mat-raised-button type="submit" >Submit</button>
+          <button mat-button type="submit" [disabled]="!registerForm.valid">Submit</button>
 
         </form>        
       </mat-card>
