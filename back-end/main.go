@@ -1,10 +1,7 @@
 package main
 
 /*
-TODO:	*sooner*
-	- debug all http unit tests
-	- finish implementing status function and uncomment the fetch in app.component.ts
-TODO:	*later*
+TODO:	*general stuff*
 	- encrypting/decrypting passwords
 	- conditional compilation and combining frontend and backend when compiling
 	- install angular and karma (testing) cli globally => npm install -g @angular/clinpm, npm install -g karma-cli

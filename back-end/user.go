@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/glebarez/sqlite"
+	//"github.com/glebarez/sqlite"
 	"github.com/gorilla/mux"
-	"gorm.io/gorm"
+	//"gorm.io/gorm"
 )
 
 type User struct {
@@ -16,6 +16,8 @@ type User struct {
 	//ItineraryList set    `json:"itinerary_list"`
 }
 
+// TODO: potentially use these structs for user login and signup
+/*
 type SignUpInput struct {
 	Username        string `json:"name" binding:"required"`
 	Password        string `json:"password" binding:"required,min=8"`
@@ -26,18 +28,11 @@ type SignInInput struct {
 	Username string `json:"username"  binding:"required"`
 	Password string `json:"password"  binding:"required"`
 }
+*/
 
-var db *gorm.DB
-var err error
-
-func InitDB() {
-	db, err = gorm.Open(sqlite.Open("database.db"), &gorm.Config{})
-	if err != nil {
-		panic("Cannot connect to DB")
-	}
-	db.AutoMigrate(&User{})
-}
-
+// TODO: maybe use array instead of accessing set of itineraries
+// funcs for editing a set of itineraries within a user struct
+/*
 var exists = struct{}{}
 
 // a set to find the itineraries that a user holds
@@ -62,28 +57,6 @@ func (s *set) Remove(value string) {
 func (s *set) Contains(value string) bool {
 	_, c := s.m[value]
 	return c
-}
-
-/*
-// potential code that we can use to see if a user exists at all
-func (u User) Exists(id int) bool {
-	exists := false
-	for _, user := range u {
-		if user.ID == id {
-			return true
-		}
-	}
-	return exists
-}
-
-// FindByName returns the user with the given name, or returns an error
-func (u User) FindByName(name string) (User, error) {
-	for _, user := range u {
-		if user.Name == name {
-			return user, nil
-		}
-	}
-	return User{}, errors.New("USER_NOT_FOUND")
 }
 */
 
