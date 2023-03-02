@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-// FIXME: finish debugging HTTP tests
+// FIXME: finish debugging HTTP tests -> https://codeburst.io/unit-testing-for-rest-apis-in-go-86c70dada52d
 
 // test getting the "admin" user specfically...will fail if admin is missing from db
 func TestGetUser(t *testing.T) {
