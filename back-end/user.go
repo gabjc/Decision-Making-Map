@@ -10,10 +10,21 @@ import (
 )
 
 type User struct {
-	gorm.Model
 	Username string `json:"username"`
 	Password string `json:"password"`
 	Name     string `json:"name"`
+	//ItineraryList set    `json:"itinerary_list"`
+}
+
+type SignUpInput struct {
+	Username        string `json:"name" binding:"required"`
+	Password        string `json:"password" binding:"required,min=8"`
+	PasswordConfirm string `json:"passwordConfirm" binding:"required"`
+}
+
+type SignInInput struct {
+	Username string `json:"username"  binding:"required"`
+	Password string `json:"password"  binding:"required"`
 }
 
 var db *gorm.DB
