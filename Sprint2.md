@@ -4,7 +4,7 @@
 
 **Gabriel Cortez** - tried to figure out how to implement a way to store the multiple variables that a user owns within a user's struct, developed the itinerary struct. Made the unit test for PostUser.
 
-**Tony Gupta** - 
+**Tony Gupta** - worked on html for pages (used material to create forms for login and register), created public and protected angular modules to implement later functionality preventing users who aren't logged in to access the main app content, buggy ts button logic to send users to dashboard
 
 **Luke Mueller** - 
 
