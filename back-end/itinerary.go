@@ -22,7 +22,7 @@ type Itinerary struct {
 	savedLocations map[string]int `json:"saved_locations"`
 }
 
-// FIXME: finish implementing, add test file and functions
+// FIXME: finish implementing route functions, create unit tests
 func GetItinerary(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
