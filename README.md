@@ -22,7 +22,7 @@ Tony Gupta (frontend), Lucas Mueller (frontend), Joshua Lamb (backend), Gabriel 
 #### To Run Backend
 cd ./back-end
 
-./serve.sh
+./serve.sh OR go test -v
 
 #### To Run Frontend
 cd ./front-end

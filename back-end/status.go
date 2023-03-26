@@ -4,7 +4,7 @@ import (
 	"net/http"
 )
 
-// FIXME: finish implementing and uncomment the fetch in app.component.ts
+// FIXME: finish implementing status function and uncomment fetch in app.component.ts
 func GetStatus(w http.ResponseWriter, r *http.Request) {
 	/* w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
@@ -17,4 +17,8 @@ func GetStatus(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Write(jsonResp)
 	return */
+}
+
+func enableCors(w *http.ResponseWriter) {
+	(*w).Header().Set("Access-Control-Allow-Origin", "*")
 }

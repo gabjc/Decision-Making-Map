@@ -74,8 +74,9 @@ func createNewItinerary() Itinerary {
 	return newItin
 }
 
-// FIXME: finish implementing, add test file and functions
+// FIXME: finish implementing route functions, create unit tests
 func GetItinerary(w http.ResponseWriter, r *http.Request) {
+	enableCors(&w)
 	w.Header().Set("Content-Type", "application/json")
 
 	itineraryID := mux.Vars(r)["itineraryID"]
@@ -86,6 +87,7 @@ func GetItinerary(w http.ResponseWriter, r *http.Request) {
 }
 
 func PostItinerary(w http.ResponseWriter, r *http.Request) {
+	enableCors(&w)
 	w.Header().Set("Content-Type", "application/json")
 
 	params := mux.Vars(r)

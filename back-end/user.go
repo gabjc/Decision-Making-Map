@@ -31,7 +31,7 @@ type SignInInput struct {
 }
 */
 
-// TODO: maybe use array instead of accessing set of itineraries
+// TODO: maybe use array of itineraries instead of set
 // funcs for editing a set of itineraries within a user struct
 /*
 var exists = struct{}{}
@@ -61,8 +61,9 @@ func (s *set) Contains(value string) bool {
 }
 */
 
-// TODO: add more routes for users and itineraries that return more specific info, not everything
+// TODO: add more routes and more specific routes
 func GetUser(w http.ResponseWriter, r *http.Request) {
+	enableCors(&w)
 	w.Header().Set("Content-Type", "application/json")
 
 	username := mux.Vars(r)["username"]
@@ -73,6 +74,7 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func PostUser(w http.ResponseWriter, r *http.Request) {
+	enableCors(&w)
 	w.Header().Set("Content-Type", "application/json")
 
 	params := mux.Vars(r)
