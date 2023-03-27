@@ -9,6 +9,7 @@ import (
 )
 
 // FIXME: finish debugging unit tests -> https://codeburst.io/unit-testing-for-rest-apis-in-go-86c70dada52d
+// move main function code into separate functions to unit test (see saved pic)
 
 // test getting the "admin" user specfically...will fail if admin is missing from db
 func TestGetUser(t *testing.T) {
