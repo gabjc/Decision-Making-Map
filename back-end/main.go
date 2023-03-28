@@ -2,6 +2,7 @@ package main
 
 /*
 TODO:	*general stuff*
+	- difference between route and query parameters
 	- authentication (I am who I say I am) vs authorization (knowing who I am, what can I do?)
 		- cookies
 		- private-public key cryptography
@@ -24,8 +25,6 @@ import (
 func InitRouter() {
 	r := mux.NewRouter()
 
-	// TODO: make post route only take emails for usernames, remove non-emails in the db
-	// TODO: make better routes, difference between route and query parameters
 	r.HandleFunc("/status", GetStatus).Methods("GET")
 	r.HandleFunc("/user/get/{username}", GetUser).Methods("GET")
 	r.HandleFunc("/user/post/{username}/{password}/{name}", PostUser).Methods("POST")
