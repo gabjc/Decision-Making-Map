@@ -64,6 +64,7 @@ func (s *set) Contains(value string) bool {
 */
 
 // TODO: add more routes and more specific routes
+// TODO: add functions to simplify repeating code below (see saved pic)
 func GetUser(w http.ResponseWriter, r *http.Request) {
 	enableCors(&w)
 	w.Header().Set("Content-Type", "application/json")
