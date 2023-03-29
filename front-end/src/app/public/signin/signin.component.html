@@ -121,7 +121,7 @@
           </mat-form-field>
           
           <mat-form-field class="login-full-width">
-            <mat-label>Username</mat-label>
+            <mat-label>Email</mat-label>
             <input matInput type="email" formControlName="email">
             <mat-error *ngIf="this.registerForm.get('email')?.touched && this.registerForm.get('email')?.hasError('required')">
               Email is required</mat-error>
