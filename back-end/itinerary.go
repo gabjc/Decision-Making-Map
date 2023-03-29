@@ -74,10 +74,9 @@ func createNewItinerary() Itinerary {
 	return newItin
 }
 
-// FIXME: finish implementing route functions, create unit tests
+// TODO: finish implementing route functions, create unit tests
 func GetItinerary(w http.ResponseWriter, r *http.Request) {
-	enableCors(&w)
-	w.Header().Set("Content-Type", "application/json")
+	SetContentJson(w, r)
 
 	itineraryID := mux.Vars(r)["itineraryID"]
 	var itinerary Itinerary
@@ -87,8 +86,7 @@ func GetItinerary(w http.ResponseWriter, r *http.Request) {
 }
 
 func PostItinerary(w http.ResponseWriter, r *http.Request) {
-	enableCors(&w)
-	w.Header().Set("Content-Type", "application/json")
+	SetContentJson(w, r)
 
 	params := mux.Vars(r)
 	itinerary := Itinerary{ /*ItineraryID: params["id"],*/ Name: params["name"], Address: params["address"], Radius: params["radius"], SavedLocations: params["saved_locations"]}

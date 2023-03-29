@@ -1,10 +1,8 @@
 package main
 
 import (
-	"encoding/json"
 	"net/http"
 
-	//"github.com/glebarez/sqlite"
 	"github.com/gorilla/mux"
 	"gorm.io/gorm"
 )
@@ -18,8 +16,7 @@ type User struct {
 }
 
 // TODO: potentially use these structs for user login and signup
-/*
-type SignUpInput struct {
+/* type SignUpInput struct {
 	Username        string `json:"name" binding:"required"`
 	Password        string `json:"password" binding:"required,min=8"`
 	PasswordConfirm string `json:"passwordConfirm" binding:"required"`
@@ -28,13 +25,11 @@ type SignUpInput struct {
 type SignInInput struct {
 	Username string `json:"username"  binding:"required"`
 	Password string `json:"password"  binding:"required"`
-}
-*/
+} */
 
 // TODO: maybe use array of itineraries instead of set
 // funcs for editing a set of itineraries within a user struct
-/*
-var exists = struct{}{}
+/* var exists = struct{}{}
 
 // a set to find the itineraries that a user holds
 type set struct {
@@ -58,30 +53,28 @@ func (s *set) Remove(value string) {
 func (s *set) Contains(value string) bool {
 	_, c := s.m[value]
 	return c
-}
-*/
+} */
 
-// TODO: add more routes and more specific routes
-// TODO: add functions to simplify repeating code below (see saved pic)
 func GetUser(w http.ResponseWriter, r *http.Request) {
-	enableCors(&w)
-	w.Header().Set("Content-Type", "application/json")
+	SetContentJson(w, r)
 
-	username := mux.Vars(r)["username"]
 	var user User
-	db.First(&user, "username = ?", username)
+	username := mux.Vars(r)["username"]
+	err := db.First(&user, "username = ?", username).Error
+	if err != nil {
+		panic("Error retrieving user from database")
+	}
 
-	json.NewEncoder(w).Encode(user)
+	EncodeJson(w, user)
 }
 
 func PostUser(w http.ResponseWriter, r *http.Request) {
-	enableCors(&w)
-	w.Header().Set("Content-Type", "application/json")
+	SetContentJson(w, r)
 
 	params := mux.Vars(r)
 	user := User{Username: params["username"], Password: params["password"], Name: params["name"]}
-	json.NewDecoder(r.Body).Decode(&user)
+	DecodeJson(r, user)
 	db.Create(&user)
 
-	json.NewEncoder(w).Encode(user)
+	EncodeJson(w, user)
 }
