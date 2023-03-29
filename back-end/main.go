@@ -32,6 +32,8 @@ func InitRouter() {
 	r.HandleFunc("/user/post/{username}/{password}/{name}", PostUser).Methods("POST")
 	r.HandleFunc("/itinerary/get/{id}", GetUser).Methods("GET")
 	r.HandleFunc("/itinerary/post/{name}/{address}/{radius}", PostUser).Methods("POST")
+	r.HandleFunc("/refresh", Refresh)
+	r.HandleFunc("/logout", Logout)
 
 	log.Fatal(http.ListenAndServe(":9000", r))
 }

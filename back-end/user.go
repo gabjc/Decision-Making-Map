@@ -13,6 +13,8 @@ type User struct {
 	Password string `json:"password"`
 	Name     string `json:"name"`
 	//ItineraryList set    `json:"itinerary_list"`
+	OwnedItineraries string `json:"owned_itineraries"`
+	itinerariesMap   map[bool]int
 }
 
 // TODO: potentially use these structs for user login and signup

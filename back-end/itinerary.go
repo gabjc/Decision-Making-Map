@@ -9,13 +9,6 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// TODO: potentially combine voted locations and saved locations into one struct to migrate to db
-type votedLocation struct {
-	voteCount   int    `json:"vote"`
-	currentVote bool   `json:"currentVote"`
-	voteName    string `json:"vote_name"`
-}
-
 type Itinerary struct {
 	//ItineraryID    string        `json:"id"`
 	Name           string `json:"name"`
@@ -43,7 +36,6 @@ func AddSavedLocation(locale string, itin Itinerary) {
 	if !found {
 		itin.locationMap[location] = 0
 	}
-
 }
 
 // Used to increase or decrease the vote for a voted location, or to delete a location from the map if it is 0
