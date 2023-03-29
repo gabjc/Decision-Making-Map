@@ -22,7 +22,6 @@ func TestGetUser(t *testing.T) {
 	if err != nil {
 		t.Errorf("Error defining request")
 	}
-	w := httptest.NewRecorder()
 
 	// pass request to router
 	rr := httptest.NewRecorder()
@@ -30,7 +29,6 @@ func TestGetUser(t *testing.T) {
 	if status := rr.Code; status != http.StatusOK {
 		t.Errorf("Handler returned wrong status code: got %v want %v", status, http.StatusOK)
 	}
-	context.Set(req, 0, vars)
 
 	// verify that the response body is what we expect
 	expected := `{"ID":0,"CreatedAt":"2023-02-28T19:02:34.8143566-05:00","UpdatedAt":"2023-02-28T19:02:34.8143566-05:00","DeletedAt":null,"username":"admin","password":"password","name":"Admin Adminton"}`
