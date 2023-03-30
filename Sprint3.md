@@ -21,12 +21,12 @@ There are currently 2 functioning routes to interact with the backend, specifica
 
 **1.** /user/register
 - description: creates a user in the database
-- requires: `[email: <string>, hash: <byte[]>, name: <string>]`
+- requires: JSON taken by register route -> `{"name": "namenamename", "email": "email@email.com", "hash": "myPassword"}`
 - returns: returns 201 status Created to indicate user created
 
 **2.** /user/login
 - description: checkes to see if the passed in email and password match to a pair in the database
-- requires: `[email: <string>, hash: <byte[]>]`
+- requires: JSON taken by login route -> `{"email": "email@email.com", "hash": "myPassword"}` 
 - returns: returns 404 status Not Found if user doesnt exist, 403 status Forbidden if password is wrong
 NOTE: we will return 201 status Created when we fully implement the JWT token with the login
 
