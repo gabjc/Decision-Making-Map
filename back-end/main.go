@@ -28,12 +28,10 @@ func InitRouter() {
 	r := mux.NewRouter()
 
 	r.HandleFunc("/status", GetStatus).Methods("GET")
-	r.HandleFunc("/user/get/{username}", GetUser).Methods("GET")
-	r.HandleFunc("/user/post/{username}/{password}/{name}", PostUser).Methods("POST")
-	r.HandleFunc("/itinerary/get/{id}", GetUser).Methods("GET")
-	r.HandleFunc("/itinerary/post/{name}/{address}/{radius}", PostUser).Methods("POST")
-	r.HandleFunc("/refresh", Refresh)
-	r.HandleFunc("/logout", Logout)
+	r.HandleFunc("/user/register", RegisterUser).Methods("POST")
+	r.HandleFunc("/user/login", Login).Methods("POST")
+	//r.HandleFunc("/itinerary/get/{id}", GetUser).Methods("GET")
+	//r.HandleFunc("/itinerary/post/{name}/{address}/{radius}", PostUser).Methods("POST")
 
 	log.Fatal(http.ListenAndServe(":9000", r))
 }

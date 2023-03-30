@@ -3,15 +3,14 @@ package main
 import (
 	"net/http"
 
-	"github.com/gorilla/mux"
 	"gorm.io/gorm"
 )
 
 type User struct {
 	gorm.Model
-	Username string `json:"username"`
-	Password string `json:"password"`
-	Name     string `json:"name"`
+	Email string `json:"email"`
+	Hash  []byte `json:"hash"`
+	Name  string `json:"name"`
 	//ItineraryList set    `json:"itinerary_list"`
 	OwnedItineraries string `json:"owned_itineraries"`
 	itinerariesMap   map[bool]int
@@ -57,26 +56,60 @@ func (s *set) Contains(value string) bool {
 	return c
 } */
 
+/*
+/
 func GetUser(w http.ResponseWriter, r *http.Request) {
 	SetContentJson(w, r)
 
+	// search db for user w/ username
 	var user User
 	username := mux.Vars(r)["username"]
 	err := db.First(&user, "username = ?", username).Error
-	if err != nil {
-		panic("Error retrieving user from database")
-	}
+	CheckError(err, "Error retrieving user from database")
 
 	EncodeJson(w, user)
 }
+*/
 
-func PostUser(w http.ResponseWriter, r *http.Request) {
+func RegisterUser(w http.ResponseWriter, r *http.Request) {
 	SetContentJson(w, r)
 
-	params := mux.Vars(r)
-	user := User{Username: params["username"], Password: params["password"], Name: params["name"]}
+	// pull user info into struct from request
+	var user User
 	DecodeJson(r, user)
+
+	// convert string password to hash
+	password := string(user.Hash)
+	hash, err := HashPassword(password)
+	CheckError(err, "Error hashing password")
+
+	// replace string password with hash in user struct
+	user.Hash = hash
+
+	// create user in database
 	db.Create(&user)
 
-	EncodeJson(w, user)
+	w.WriteHeader(http.StatusCreated)
+}
+
+func Login(w http.ResponseWriter, r *http.Request) {
+	SetContentJson(w, r)
+
+	// pull user info into struct from request
+	var user User
+	DecodeJson(r, user)
+	password := string(user.Hash)
+
+	// find the user's hash in the database
+	var user2 User
+	err := db.First(&user2, "email = ?", user.Email).Error
+
+	if err != nil { // if no user, return 404 Not Found
+		w.WriteHeader(http.StatusNotFound)
+	} else if !HashMatches(password, user2.Hash) { // else if hash doesn't match, return 403 Forbidden
+		w.WriteHeader(http.StatusForbidden)
+	} else { // else return 201 status Created and JWT token
+		w.WriteHeader(http.StatusCreated)
+		// TODO: send token
+	}
 }

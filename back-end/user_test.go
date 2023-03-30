@@ -10,6 +10,7 @@ import (
 )
 
 // TODO: abstract testing funcs by adding more helper funcs
+/*
 func TestGetUser(t *testing.T) {
 	InitDB()
 
@@ -19,9 +20,7 @@ func TestGetUser(t *testing.T) {
 
 	// define test request
 	req, err := http.NewRequest("GET", "/user/get/admin", nil)
-	if err != nil {
-		t.Errorf("Error defining request")
-	}
+	CheckError(err, "Error defining request")
 
 	// pass request to router
 	rr := httptest.NewRecorder()
@@ -36,21 +35,20 @@ func TestGetUser(t *testing.T) {
 		t.Errorf("Handler returned unexpected body:\ngot \n%v want \n%v", rr.Body.String(), expected)
 	}
 }
+*/
 
 func TestPostUser(t *testing.T) {
 	InitDB()
 
 	// create test router
 	router := mux.NewRouter()
-	router.HandleFunc("/user/post/{username}/{password}/{name}", PostUser).Methods("POST")
+	router.HandleFunc("/user/post/{username}/{password}/{name}", RegisterUser).Methods("POST")
 
 	// define test request
 	// TODO: why do we need the request body? Route vs query parameters?
 	reqBody := strings.NewReader(`{"Username": "test2", "Password": "test2", "Name": "test2"}`)
 	req, err := http.NewRequest("POST", "/user/post/test2/test2/test2", reqBody)
-	if err != nil {
-		t.Errorf("Error defining request")
-	}
+	CheckError(err, "Error defining request")
 
 	// pass request to router
 	rr := httptest.NewRecorder()
@@ -63,7 +61,5 @@ func TestPostUser(t *testing.T) {
 	var user User
 	username := "test2"
 	err = db.First(&user, "username = ?", username).Error
-	if err != nil {
-		t.Errorf("Error finding user in database")
-	}
+	CheckError(err, "Error finding user in database:")
 }
