@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       const email = this.loginForm.get('email')?.value;
       const password = this.loginForm.get('password')?.value;
+      console.log(email, password);
       this.authService.login(email, password).subscribe(
         () => {
           //protected dashboard
