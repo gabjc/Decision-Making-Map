@@ -6,7 +6,7 @@ import { map, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:9000/';
+  private apiUrl = 'http://localhost:9000';
   authenticated = false;
   authenticated$: EventEmitter<boolean> = new EventEmitter<boolean>();
 
