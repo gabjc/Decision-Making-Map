@@ -2,7 +2,7 @@
 
 **Josh Lamb** - 
 
-**Gabriel Cortez** - Mostly finished the itinerary class to store the information needed for a created itinerary, with a map that will hold any locations that have been voted on. Created a simple JWT token template to be used in the future but may need to change some parts of the code in other files in the future.
+**Gabriel Cortez** - Mostly finished the itinerary class to store the information needed for a created itinerary, with a map that will hold any locations that have been voted on. Created some basic tests for "PUT" and "GET" for itinerary, but have not been able to test yet. Created a simple JWT token template to be used in the future but may need to change some parts of the code in other files in the future.
 
 **Tony Gupta** - 
 
