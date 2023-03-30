@@ -1,6 +1,6 @@
 ## Work Completed
 
-**Josh Lamb** - 
+**Josh Lamb** - Finished implementing status function, deleted a generic "get" HTTP route for a user and replaced it with a route to register a user, replaced all route query parameters with route parameters. Implemented bcrypt to store password hashes on the database instead of the passwords themselves, fixed Go functional testing functions for the HTTP routes, started looking into JWT tokens with Gabe.
 
 **Gabriel Cortez** - Mostly finished the itinerary class to store the information needed for a created itinerary, with a map that will hold any locations that have been voted on. Created some basic tests for "PUT" and "GET" for itinerary, but have not been able to test yet. Created a simple JWT token template to be used in the future but may need to change some parts of the code in other files in the future.
 
