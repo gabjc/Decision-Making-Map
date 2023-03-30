@@ -10,7 +10,6 @@ TODO:	*general stuff*
 			- creating -> take password, generate extra parts like seeds, compute hash with bcrypt, put hash and seed in db with gorm
 			- checking -> retrieve hash and seed, feed into bcrypt, test if password matches, give or don't give the cookie
 
-	- difference between route and query parameters
 	- continuous integration (versus c-delivery and c-deployment)
 	- learn more about Cypress testing
 	- conditional compilation and combining frontend and backend when compiling
@@ -30,8 +29,6 @@ func InitRouter() {
 	r.HandleFunc("/status", GetStatus).Methods("GET")
 	r.HandleFunc("/user/register", RegisterUser).Methods("POST")
 	r.HandleFunc("/user/login", Login).Methods("POST")
-	//r.HandleFunc("/itinerary/get/{id}", GetUser).Methods("GET")
-	//r.HandleFunc("/itinerary/post/{name}/{address}/{radius}", PostUser).Methods("POST")
 
 	log.Fatal(http.ListenAndServe(":9000", r))
 }

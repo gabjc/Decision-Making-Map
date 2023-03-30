@@ -9,9 +9,8 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// TODO: abstract testing funcs by adding more helper funcs
-/*
-func TestGetUser(t *testing.T) {
+// Test function for old route
+/* func TestGetUser(t *testing.T) {
 	InitDB()
 
 	// create test router
@@ -34,32 +33,55 @@ func TestGetUser(t *testing.T) {
 	if strings.TrimRight(rr.Body.String(), "\n") != expected {
 		t.Errorf("Handler returned unexpected body:\ngot \n%v want \n%v", rr.Body.String(), expected)
 	}
-}
-*/
+} */
 
-func TestPostUser(t *testing.T) {
+// TODO: abstract testing funcs by adding more helper funcs like for errors
+func TestRegisterUser(t *testing.T) {
 	InitDB()
 
 	// create test router
 	router := mux.NewRouter()
-	router.HandleFunc("/user/post/{username}/{password}/{name}", RegisterUser).Methods("POST")
+	router.HandleFunc("/user/register", RegisterUser).Methods("POST")
 
 	// define test request
-	// TODO: why do we need the request body? Route vs query parameters?
-	reqBody := strings.NewReader(`{"Username": "test2", "Password": "test2", "Name": "test2"}`)
-	req, err := http.NewRequest("POST", "/user/post/test2/test2/test2", reqBody)
+	reqBody := strings.NewReader(`{"name": "Testy Man", "email": "test@test.com", "hash": "password", "owned_itineraries": ""}`)
+	req, err := http.NewRequest("POST", "/user/register", reqBody)
 	CheckError(err, "Error defining request")
 
 	// pass request to router
 	rr := httptest.NewRecorder()
 	router.ServeHTTP(rr, req)
-	if status := rr.Code; status != http.StatusOK {
-		t.Errorf("Hander returned wrong status code: got %v want %v", status, http.StatusOK)
+	if status := rr.Code; status != http.StatusCreated {
+		t.Errorf("Hander returned wrong status code: got %v want %v", status, http.StatusCreated)
 	}
 
 	// verify that the new user is in the database
 	var user User
-	username := "test2"
-	err = db.First(&user, "username = ?", username).Error
-	CheckError(err, "Error finding user in database:")
+	email := "test@test.com"
+	err = db.First(&user, "email = ?", email).Error
+	if err != nil {
+		t.Errorf("Unable to find new user in database")
+	}
+}
+
+func TestLoginUser(t *testing.T) {
+	InitDB()
+
+	// create test router
+	router := mux.NewRouter()
+	router.HandleFunc("/user/login", RegisterUser).Methods("POST")
+
+	// define test request
+	reqBody := strings.NewReader(`{"email": "test", "hash": "testpassword"}`)
+	req, err := http.NewRequest("POST", "/user/login", reqBody)
+	CheckError(err, "Error defining request")
+
+	// pass request to router
+	rr := httptest.NewRecorder()
+	router.ServeHTTP(rr, req)
+	if status := rr.Code; status == http.StatusNotFound || status == http.StatusForbidden {
+		t.Errorf("Hander returned wrong status code: got %v want %v", status, http.StatusOK)
+	} else {
+		// TODO: somehow check 201 Created or the JWT token?
+	}
 }
