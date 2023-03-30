@@ -18,7 +18,7 @@ We fixed the unit test for the RegisterUser function from the "/user/register" r
 
 ## Backend API Documentation
 This API assumes that all responses are made with `Content-Type: application/json`
-There are currently 3 functioning routes to interact with the backend, specifically for creating a new user and finding a specific user.
+There are currently 3 functioning routes to interact with the backend, specifically for registering a new user, logging in, and getting a generic status OK to confirm front-end and back-end communication.
 
 **1.** /user/register
 - description: creates a user in the database
