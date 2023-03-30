@@ -13,7 +13,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   login(email: string, password: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/user/login`, { email, password }).pipe(
+    return this.http.post<any>(`${this.apiUrl}/user/login`, { email: email, hash: password }, { headers: { 'Content-Type': 'application/json' } }).pipe(
       map(response => {
         if (response && response.token) {
           localStorage.setItem('access_token', response.token);
@@ -27,7 +27,7 @@ export class AuthService {
   }
 
   register(name: string, email: string, password: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/user/register`, { name, email, password });
+    return this.http.post<any>(`${this.apiUrl}/user/register`, { name: name, email: email, hash: password }, { headers: { 'Content-Type': 'application/json' } });
   }
 
   isAuthenticated(): boolean {
