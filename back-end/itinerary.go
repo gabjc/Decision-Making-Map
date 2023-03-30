@@ -10,7 +10,7 @@ import (
 )
 
 type Itinerary struct {
-	//ItineraryID    string        `json:"id"`
+	ItineraryID    string `json:"itin_id"`
 	Name           string `json:"name"`
 	Address        string `json:"address"`
 	Radius         string `json:"radius"`
@@ -18,19 +18,14 @@ type Itinerary struct {
 	locationMap    map[string]int
 }
 
+// Adds location to map
 func AddSavedLocation(locale string, itin Itinerary) {
-	//TODO: parse data from the frontend, then add it to the map, discuss with frontend how they will send the data to the backend
 	var location string
 	stringLocale := strings.Fields(locale)
 	for i, word := range stringLocale {
 		if i == 0 {
 			location = word
 		}
-		/*
-			else if (i == 1) {
-
-			}
-		*/
 	}
 	_, found := itin.locationMap[location]
 	if !found {
@@ -81,7 +76,7 @@ func PostItinerary(w http.ResponseWriter, r *http.Request) {
 	SetContentJson(w, r)
 
 	params := mux.Vars(r)
-	itinerary := Itinerary{ /*ItineraryID: params["id"],*/ Name: params["name"], Address: params["address"], Radius: params["radius"], SavedLocations: params["saved_locations"]}
+	itinerary := Itinerary{ItineraryID: params["itin_id"], Name: params["name"], Address: params["address"], Radius: params["radius"], SavedLocations: params["saved_locations"]}
 	json.NewDecoder(r.Body).Decode(&itinerary)
 	db.Create(&itinerary)
 
