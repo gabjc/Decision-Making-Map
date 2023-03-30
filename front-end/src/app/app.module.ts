@@ -9,6 +9,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 //JWT token behavior—local storage (decision_making_map is the key name, the actual string of gibberish will be the value paired to it)
 export const LOCALSTORAGE_TOKEN_KEY = 'decision_making_map';
@@ -23,6 +24,8 @@ export function tokenGetter() {
     AppComponent
   ],
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
     BrowserModule,
     BrowserAnimationsModule,
 	  HttpClientModule,
