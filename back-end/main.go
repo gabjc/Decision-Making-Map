@@ -25,12 +25,12 @@ import (
 func InitRouter() {
 	r := mux.NewRouter()
 
-	//Users
+	// users
 	r.HandleFunc("/status", GetStatus).Methods("GET")
 	r.HandleFunc("/user/register", RegisterUser).Methods("POST")
 	r.HandleFunc("/user/login", Login).Methods("POST")
 
-	//Itineraries
+	// itineraries
 	r.HandleFunc("/itinerary/get/{id}", GetItinerary).Methods("GET")
 	r.HandleFunc("/itinerary/post/{name}/{address}/{radius}", PostItinerary).Methods("POST")
 	//r.HandleFunc("/refresh", Refresh)

@@ -36,6 +36,7 @@ import (
 } */
 
 // TODO: abstract testing funcs by adding more helper funcs like for errors
+// TODO: can also do Postman tests
 func TestRegisterUser(t *testing.T) {
 	InitDB()
 
