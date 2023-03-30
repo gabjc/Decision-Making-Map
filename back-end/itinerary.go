@@ -57,7 +57,7 @@ func CreateJsonFromMap(data map[string]int) string {
 // Potentially used when a person presses a "New Itinerary" button
 func createNewItinerary() Itinerary {
 	//TODO: save this to a person
-	newItin := Itinerary{"Untitled Itinerary", "No Address", "No Radius", "", make(map[string]int)}
+	newItin := Itinerary{"", "Untitled Itinerary", "No Address", "No Radius", "", make(map[string]int)}
 	return newItin
 }
 

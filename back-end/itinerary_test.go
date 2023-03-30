@@ -1,10 +1,10 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
 	"net/http"
+	"net/http/httptest"
 	"strings"
+	"testing"
 
 	"github.com/gorilla/mux"
 )
@@ -14,7 +14,7 @@ func TestGetItinerary(t *testing.T) {
 
 	// create test router
 	router := mux.NewRouter()
-	router.HandleFunc("/itinerary/get/{id}", GetUser).Methods("GET")
+	router.HandleFunc("/itinerary/get/{id}", GetItinerary).Methods("GET")
 
 	// define test request
 	req, err := http.NewRequest("GET", "/itinerary/get/admin", nil)
@@ -41,7 +41,7 @@ func TestPostItinerary(t *testing.T) {
 
 	// create test router
 	router := mux.NewRouter()
-	router.HandleFunc("/itinerary/post/{name}/{address}/{radius}", PostUser).Methods("POST")
+	router.HandleFunc("/itinerary/post/{name}/{address}/{radius}", PostItinerary).Methods("POST")
 
 	// define test request
 	reqBody := strings.NewReader(`{"itin_id": "0", "name": "Summer Vacation", "address": "123 Summer Rd", "radius": "200"}`)
