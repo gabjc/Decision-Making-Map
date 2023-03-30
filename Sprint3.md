@@ -4,7 +4,7 @@
 
 **Gabriel Cortez** - Mostly finished the itinerary class to store the information needed for a created itinerary, with a map that will hold any locations that have been voted on. Created some basic tests for "PUT" and "GET" for itinerary, but have not been able to test yet. Created a simple JWT token template to be used in the future but may need to change some parts of the code in other files in the future.
 
-**Tony Gupta** - 
+**Tony Gupta** - Reworked all of the logic behind login and signup (component .ts files, auth-service, auth-guard) to actually connect to backend on localhost9000 and send POST requests. Sends a JSON containing user data to either add to database or check against database and obtain a JWT for login. Some issue with CORS (requires more research) that denied backend access from the frontend's localhost4200 location. Will also need to store JWT in a cookie instead of localstorage and implement an HTTPinterceptor.
 
 **Lucas Mueller** - 
 
