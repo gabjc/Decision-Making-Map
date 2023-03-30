@@ -11,7 +11,6 @@ import (
 	"time"
 
 	jwt "github.com/dgrijalva/jwt-go"
-	"golang.org/x/crypto/bcrypt"
 )
 
 func CreateToken(user_id uint32) (string, error) {
