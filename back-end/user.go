@@ -1,86 +1,76 @@
 package main
 
 import (
-	"encoding/json"
 	"net/http"
 
-	//"github.com/glebarez/sqlite"
-	"github.com/gorilla/mux"
 	"gorm.io/gorm"
 )
 
 type User struct {
 	gorm.Model
-	Username string `json:"username"`
-	Password string `json:"password"`
-	Name     string `json:"name"`
-	//ItineraryList set    `json:"itinerary_list"`
+	Name             string `json:"name"`
+	Email            string `json:"email"`
+	Hash             []byte `json:"hash"`
+	OwnedItineraries string `json:"owned_itineraries"`
+	//itinerariesMap   map[bool]int
 }
 
-// TODO: potentially use these structs for user login and signup
-/*
-type SignUpInput struct {
-	Username        string `json:"name" binding:"required"`
-	Password        string `json:"password" binding:"required,min=8"`
-	PasswordConfirm string `json:"passwordConfirm" binding:"required"`
-}
+// Old route function
+/* func GetUser(w http.ResponseWriter, r *http.Request) {
+	SetContentJson(w, r)
 
-type SignInInput struct {
-	Username string `json:"username"  binding:"required"`
-	Password string `json:"password"  binding:"required"`
-}
-*/
-
-// TODO: maybe use array of itineraries instead of set
-// funcs for editing a set of itineraries within a user struct
-/*
-var exists = struct{}{}
-
-// a set to find the itineraries that a user holds
-type set struct {
-	m map[string]struct{}
-}
-
-func NewSet() *set {
-	s := &set{}
-	s.m = make(map[string]struct{})
-	return s
-}
-
-func (s *set) Add(value string) {
-	s.m[value] = exists
-}
-
-func (s *set) Remove(value string) {
-	delete(s.m, value)
-}
-
-func (s *set) Contains(value string) bool {
-	_, c := s.m[value]
-	return c
-}
-*/
-
-// TODO: add more routes and more specific routes
-func GetUser(w http.ResponseWriter, r *http.Request) {
-	enableCors(&w)
-	w.Header().Set("Content-Type", "application/json")
-
-	username := mux.Vars(r)["username"]
+	// search db for user w/ username
 	var user User
-	db.First(&user, "username = ?", username)
+	username := mux.Vars(r)["username"]
+	err := db.First(&user, "username = ?", username).Error
+	CheckError(err, "Error retrieving user from database")
 
-	json.NewEncoder(w).Encode(user)
-}
+	// return user JSON
+	EncodeJson(w, user)
+} */
 
-func PostUser(w http.ResponseWriter, r *http.Request) {
-	enableCors(&w)
-	w.Header().Set("Content-Type", "application/json")
+func RegisterUser(w http.ResponseWriter, r *http.Request) {
+	SetContentJson(w, r)
 
-	params := mux.Vars(r)
-	user := User{Username: params["username"], Password: params["password"], Name: params["name"]}
-	json.NewDecoder(r.Body).Decode(&user)
+	// pull user info into struct from request
+	var user User
+	DecodeJson(r, &user)
+
+	// set user vars not included in register request
+	user.OwnedItineraries = ""
+
+	// convert password to hash
+	password := user.Hash
+	hash, err := HashPassword(string(password))
+	CheckError(err, "Error hashing password")
+
+	// replace string password with hash in user struct
+	user.Hash = hash
+
+	// create user in database
 	db.Create(&user)
 
-	json.NewEncoder(w).Encode(user)
+	w.WriteHeader(http.StatusCreated)
+}
+
+func Login(w http.ResponseWriter, r *http.Request) {
+	SetContentJson(w, r)
+
+	// pull user info into struct from request
+	var user User
+	DecodeJson(r, &user)
+	password := string(user.Hash)
+
+	// find the user's hash in the database
+	var user2 User
+	err := db.First(&user2, "email = ?", user.Email).Error
+
+	if err != nil { // no user, return 404 Not Found
+		w.WriteHeader(http.StatusNotFound)
+	} else if !HashMatches(password, user2.Hash) { // hash doesn't match, return 403 Forbidden
+		w.WriteHeader(http.StatusForbidden)
+	} else { // else return 201 Created and JWT token
+		w.WriteHeader(http.StatusCreated)
+		// TODO: send token
+	}
 }

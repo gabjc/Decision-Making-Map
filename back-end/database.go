@@ -10,8 +10,6 @@ var err error
 
 func InitDB() {
 	db, err = gorm.Open(sqlite.Open("database.db"), &gorm.Config{})
-	if err != nil {
-		panic("Cannot connect to DB")
-	}
-	db.AutoMigrate(&User{}) // TODO: add the struct for itineraries
+	CheckError(err, "Cannot connect to DB")
+	db.AutoMigrate(&User{}) // TODO: migrate struct for itineraries once complete
 }

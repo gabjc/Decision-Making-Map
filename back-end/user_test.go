@@ -1,62 +1,87 @@
 package main
 
 import (
-	"bytes"
-	"fmt" // remove later
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
+
+	"github.com/gorilla/mux"
 )
 
-// FIXME: finish debugging unit tests -> https://codeburst.io/unit-testing-for-rest-apis-in-go-86c70dada52d
+// Test function for old route
+/* func TestGetUser(t *testing.T) {
+	InitDB()
 
-// test getting the "admin" user specfically...will fail if admin is missing from db
-func TestGetUser(t *testing.T) {
+	// create test router
+	router := mux.NewRouter()
+	router.HandleFunc("/user/get/{username}", GetUser).Methods("GET")
+
+	// define test request
 	req, err := http.NewRequest("GET", "/user/get/admin", nil)
-	if err != nil {
-		t.Fatal(err)
-	}
+	CheckError(err, "Error defining request")
 
+	// pass request to router
 	rr := httptest.NewRecorder()
-	handler := http.HandlerFunc(GetUser)
-	handler.ServeHTTP(rr, req)
+	router.ServeHTTP(rr, req)
 	if status := rr.Code; status != http.StatusOK {
-		t.Errorf("handler returned wrong status code: got %v want %v", status, http.StatusOK)
+		t.Errorf("Handler returned wrong status code: got %v want %v", status, http.StatusOK)
 	}
 
 	// verify that the response body is what we expect
-	expected := `[{"ID":0,"CreatedAt":"2023-02-28T19:02:34.8143566-05:00","UpdatedAt":"2023-02-28T19:02:34.8143566-05:00","DeletedAt":null,"username":"admin","password":"password","name":"Admin Adminton"}]`
-	if rr.Body.String() != expected {
-		t.Errorf("handler returned unexpected body: got %v want %v", rr.Body.String(), expected)
+	expected := `{"ID":0,"CreatedAt":"2023-02-28T19:02:34.8143566-05:00","UpdatedAt":"2023-02-28T19:02:34.8143566-05:00","DeletedAt":null,"username":"admin","password":"password","name":"Admin Adminton"}`
+	if strings.TrimRight(rr.Body.String(), "\n") != expected {
+		t.Errorf("Handler returned unexpected body:\ngot \n%v want \n%v", rr.Body.String(), expected)
+	}
+} */
+
+// TODO: abstract testing funcs by adding more helper funcs like for errors
+func TestRegisterUser(t *testing.T) {
+	InitDB()
+
+	// create test router
+	router := mux.NewRouter()
+	router.HandleFunc("/user/register", RegisterUser).Methods("POST")
+
+	// define test request
+	reqBody := strings.NewReader(`{"name": "Testy Man", "email": "test@test.com", "hash": "password", "owned_itineraries": ""}`)
+	req, err := http.NewRequest("POST", "/user/register", reqBody)
+	CheckError(err, "Error defining request")
+
+	// pass request to router
+	rr := httptest.NewRecorder()
+	router.ServeHTTP(rr, req)
+	if status := rr.Code; status != http.StatusCreated {
+		t.Errorf("Hander returned wrong status code: got %v want %v", status, http.StatusCreated)
+	}
+
+	// verify that the new user is in the database
+	var user User
+	email := "test@test.com"
+	err = db.First(&user, "email = ?", email).Error
+	if err != nil {
+		t.Errorf("Unable to find new user in database")
 	}
 }
 
-func TestPostUser(t *testing.T) {
-	fmt.Print("is it even here??? ")
+func TestLoginUser(t *testing.T) {
+	InitDB()
 
-	var jsonStr = []byte(`{"username":gabjc,"password":"supersecretpassword","name":"gabriel"}`)
-	fmt.Print("jsonStr ")
+	// create test router
+	router := mux.NewRouter()
+	router.HandleFunc("/user/login", RegisterUser).Methods("POST")
 
-	req, err := http.NewRequest("POST", "/user/post/{username}/{password}/{name}", bytes.NewBuffer(jsonStr))
-	fmt.Print("req, err ")
-	if err != nil {
-		t.Fatal(err)
-	}
-	req.Header.Set("Content-Type", "application/json")
-	fmt.Print("setheader ")
+	// define test request
+	reqBody := strings.NewReader(`{"email": "test", "hash": "testpassword"}`)
+	req, err := http.NewRequest("POST", "/user/login", reqBody)
+	CheckError(err, "Error defining request")
+
+	// pass request to router
 	rr := httptest.NewRecorder()
-	fmt.Print(("httptest "))
-	handler := http.HandlerFunc(PostUser)
-	fmt.Print("handler ")
-	handler.ServeHTTP(rr, req)
-	fmt.Print("servehttp ")
-	if status := rr.Code; status != http.StatusOK {
-		t.Errorf("handler returned wrong status code: got %v want %v",
-			status, http.StatusOK)
-	}
-	expected := `{"username":gabjc,"password":"supersecretpassword","name":"gabriel"}`
-	if rr.Body.String() != expected {
-		t.Errorf("handler returned unexpected body: got %v want %v",
-			rr.Body.String(), expected)
+	router.ServeHTTP(rr, req)
+	if status := rr.Code; status == http.StatusNotFound || status == http.StatusForbidden {
+		t.Errorf("Hander returned wrong status code: got %v want %v", status, http.StatusOK)
+	} else {
+		// TODO: somehow check 201 Created or the JWT token?
 	}
 }
