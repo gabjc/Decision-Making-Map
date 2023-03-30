@@ -2,7 +2,6 @@ package main
 
 /*
 TODO:	*general stuff*
-	- add error checking at all possible points of http routes, utils, testing, etc, and change printout text
 	- authentication (I am who I say I am) vs authorization (knowing who I am, what can I do?)
 		- cookies
 		- private-public key cryptography
