@@ -6,12 +6,16 @@
 
 **Tony Gupta** - Reworked all of the logic behind login and signup (component .ts files, auth-service, auth-guard) to actually connect to backend on localhost9000 and send POST requests. Sends a JSON containing user data to either add to database or check against database and obtain a JWT for login. Some issue with CORS (requires more research) that denied backend access from the frontend's localhost4200 location. Will also need to store JWT in a cookie instead of localstorage and implement an HTTPinterceptor.
 
-**Lucas Mueller** - 
+**Lucas Mueller** - Wrote more cypress tests to imporove the specificity of our testing and overall quality of our app. The cypress tests included verifying the page loads correctly by checking the HTTP status code, checking to make sure all the elements are visible as expected, and chcking how the app will display on different screen sizes. Also, researched integration methods for backend and frontend communication. JWT tokens is the authentication method we aim to use for login so I also looked into that. the goal for next sprint is to have the backend and frontend communicate using HTTP requests.
 
 
 ## Frontend Unit Tests and Cypress Tests
 
+we added three basic tests:
 
+test 1: verifies that the page loads successfully and has the expected title and status code.
+test 2: verifies that the page contains the expected content and that a specific element is visible and has the expected text.
+test 3: verifies that the page is responsive on different screen sizes.
 
 ## Backend Unit Tests
 We fixed the unit test for the RegisterUser function from the "/user/register" route. We removed the unit test for the GetUser function from the "/user/get/{username}" route which we deleted. Finally, we added a new unit test for our new Login function from the new "/user/login" route. 
