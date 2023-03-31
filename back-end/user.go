@@ -30,7 +30,7 @@ type User struct {
 } */
 
 func RegisterUser(w http.ResponseWriter, r *http.Request) {
-	SetContentJson(w, r)
+	SetContentJson(w, r) // TODO: is this needed if we take, but don't return, a JSON?
 
 	// pull user info into struct from request
 	var user User

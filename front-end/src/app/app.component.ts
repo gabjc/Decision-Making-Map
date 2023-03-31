@@ -17,14 +17,9 @@ export class AppComponent implements OnInit {
   // App component object has StatusService object and AppConfigService object
   constructor(private statusService: StatusService, private appConfigService: AppConfigService, private http: HttpClient) { }
 
-  // TODO: mock services for unit testing parts of the frontend
-
   // On app init
   ngOnInit() {
-    // Log simple get route from backend
-    this.http.get('http://localhost:9000/user/get/admin').subscribe(res => {
-      console.log('res', res)
-    })
+
   }
 
 }
