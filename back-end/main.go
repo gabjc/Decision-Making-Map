@@ -41,7 +41,7 @@ func InitRouter() {
 	//r.HandleFunc("/refresh", Refresh)
 	//r.HandleFunc("/logout", Logout)
 
-	log.Fatal(http.ListenAndServe(":8080", handlers.CORS(allowedHeaders, allowedOrigins, allowedMethods)(r)))
+	log.Fatal(http.ListenAndServe(":9000", handlers.CORS(allowedHeaders, allowedOrigins, allowedMethods)(r)))
 }
 
 func main() {

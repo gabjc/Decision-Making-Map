@@ -9,14 +9,8 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-// cors
-func BypassCors(w *http.ResponseWriter) {
-	(*w).Header().Set("Access-Control-Allow-Origin", "*")
-}
-
 // http routes
 func SetContentJson(w http.ResponseWriter, r *http.Request) {
-	BypassCors(&w)
 	w.Header().Set("Content-Type", "application/json")
 }
 func EncodeJson(w http.ResponseWriter, myStruct interface{}) {

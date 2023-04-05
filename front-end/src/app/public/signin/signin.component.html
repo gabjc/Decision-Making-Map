@@ -114,9 +114,9 @@
           
           <mat-form-field class="login-full-width">
             <mat-label>Name</mat-label>
-            <input matInput type="text" formControlName="username">
+            <input matInput type="text" formControlName="name">
             <mat-error
-              *ngIf="this.registerForm.get('username')?.touched && this.registerForm.get('username')?.hasError('required')">
+              *ngIf="this.registerForm.get('name')?.touched && this.registerForm.get('name')?.hasError('required')">
               Name is required</mat-error>
           </mat-form-field>
           
