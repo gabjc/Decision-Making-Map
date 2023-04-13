@@ -53,7 +53,6 @@ func ExtractToken(r *http.Request) string {
 }
 
 func ExtractTokenID(r *http.Request) (uint32, error) {
-
 	tokenString := ExtractToken(r)
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
@@ -75,7 +74,7 @@ func ExtractTokenID(r *http.Request) (uint32, error) {
 	return 0, nil
 }
 
-// Pretty display the claims nicely in the terminal
+// Display the claims nicely in the terminal
 func Pretty(data interface{}) {
 	b, err := json.MarshalIndent(data, "", " ")
 	if err != nil {

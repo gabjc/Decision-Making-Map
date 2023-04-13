@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"net/http"
 
@@ -13,19 +12,31 @@ import (
 func SetContentJson(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 }
-func EncodeJson(w http.ResponseWriter, myStruct interface{}) {
-	err := json.NewEncoder(w).Encode(myStruct)
-	CheckError(err, "Error encoding JSON")
-}
 func DecodeJson(r *http.Request, myStruct interface{}) {
 	err := json.NewDecoder(r.Body).Decode(&myStruct)
-	CheckError(err, "Error decoding JSON")
+	BackendError(err, "Error decoding JSON")
+}
+func EncodeJson(w http.ResponseWriter, statusCode int, myStruct interface{}) {
+	w.WriteHeader(statusCode)
+	err := json.NewEncoder(w).Encode(myStruct)
+	BackendError(err, "Error encoding JSON")
 }
 
-// errors
-func CheckError(err error, msg string) {
+// error checking
+func BackendError(err error, msg string) {
 	if err != nil {
 		panic(msg)
+	}
+}
+func FrontendError(w http.ResponseWriter, err error, statusCode int) {
+	if err != nil {
+		EncodeJson(w, statusCode, struct {
+			Error string `json:"error"`
+		}{
+			Error: err.Error(),
+		})
+		// print error info on backend
+		fmt.Println("Unauthorized request")
 	}
 }
 
@@ -39,42 +50,8 @@ func HashMatches(password string, hash []byte) bool {
 	return err == nil
 }
 
-// Used for http responses
-func JSON(w http.ResponseWriter, statusCode int, data interface{}) {
-	w.WriteHeader(statusCode)
-	err := json.NewEncoder(w).Encode(data)
-	if err != nil {
-		fmt.Fprintf(w, "%s", err.Error())
-	}
-}
-
-func ERROR(w http.ResponseWriter, statusCode int, err error) {
-	if err != nil {
-		JSON(w, statusCode, struct {
-			Error string `json:"error"`
-		}{
-			Error: err.Error(),
-		})
-		return
-	}
-	JSON(w, http.StatusBadRequest, nil)
-}
-
-// For JWT Tokens
-func SetMiddlewareJSON(next http.HandlerFunc) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-Type", "application/json")
-		next(w, r)
-	}
-}
-
-func SetMiddlewareAuthentication(next http.HandlerFunc) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		err := TokenValid(r)
-		if err != nil {
-			ERROR(w, http.StatusUnauthorized, errors.New("Unauthorized"))
-			return
-		}
-		next(w, r)
-	}
+// JWT tokens
+func ConfirmAuthentication(w http.ResponseWriter, r *http.Request) {
+	err := TokenValid(r)
+	FrontendError(w, err, http.StatusUnauthorized)
 }
