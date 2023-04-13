@@ -57,6 +57,6 @@ func TestLoginUser(t *testing.T) {
 	if status := rr.Code; status == http.StatusNotFound || status == http.StatusForbidden {
 		t.Errorf("Hander returned wrong status code: got %v want %v", status, http.StatusOK)
 	} else {
-		// TODO: somehow check 201 Created or the JWT token?
+		// TODO: somehow check 201 Created and the JWT token?
 	}
 }

@@ -16,6 +16,7 @@ type User struct {
 	//itinerariesMap   map[bool]int
 }
 
+// TODO: make sure user does not already exist, add frontend handling as well
 func RegisterUser(w http.ResponseWriter, r *http.Request) {
 	SetContentJson(w, r)
 
@@ -54,7 +55,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	} else if !HashMatches(password, user2.Hash) { // hash doesn't match, return 403 Forbidden
 		w.WriteHeader(http.StatusForbidden)
 	} else { // else create JWT token, return it and 201 Created
-		tok, err := CreateToken(user.ID)
+		tok, err := CreateToken(user2.ID)
 		BackendError(err, "Error creating JWT")
 		EncodeJson(w, http.StatusCreated, tok)
 	}
