@@ -1,8 +1,5 @@
-<br>
-<br>
-<br>
-<br>
-<br>
+<link rel="stylesheet" href="dashboard.component.css">
+
 <style>
     :host {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -13,46 +10,47 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
-  
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      margin: 8px 0;
-    }
-  
-    p {
-      margin: 0;
-    }
-  
+
     .content {
-      display: flex;
-      margin: 82px auto 32px;
+      display: grid;
+      grid-template-columns: 300px 10px 890px;
+      margin: 50px auto 32px;
       padding: 0 16px;
-      max-width: 960px;
+      max-width: 1200px;
       flex-direction: column;
-      align-items: center;
+      /* align-items: center; */
+      background-color: blue;
     }
     
     .sidebar {
+      display: grid;
+      grid-template-rows:  15px 100px 100px 100px 100px 100px 100px;
+      justify-content: center;
+      margin-top: 16px;
+      background-color: red;
+      max-width: 300px;
+      height: 615px;
+      align-items: center;
+    }
+
+    .form {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       margin-top: 16px;
+      color: white;
+      background-color: rgb(1, 57, 58);
+      height: 600px;
+      max-width: 590px;
     }
-  
-    .card {
+    .addItin {
       all: unset;
       border-radius: 4px;
-      border: 1px solid #462b69;
+      border: 2px solid #462b69;
       background-color: #2d42dd;
       color:#ffffff;
-      height: 40px;
-      width: 200px;
-      margin: 0 8px 16px;
-      padding: 16px;
+      height: 30px;
+      width: 275px;
       display: flex;
       flex-direction: row;
       justify-content: center;
@@ -60,81 +58,63 @@
       transition: all 0.2s ease-in-out;
       line-height: 24px;
     }
-  
-    .card.card-small {
-      height: 16px;
-      width: 168px;
+
+    .Itinerary {
+      all: unset;
+      border-radius: 4px;
+      border: 2px solid #462b69;
+      background-color: #2d42dd;
+      color:#ffffff;
+      height: 75px;
+      width: 275px;
+      line-height: 24px;
+      transition: all 0.2s ease-in-out;
     }
   
-    .sidebar .card:not(.highlight-card) {
+    .sidebar .Itinerary:not(.highlight-Itinerary):hover {
       cursor: pointer;
-    }
-  
-    .sidebar .card:not(.highlight-card):hover {
       transform: translateY(-3px);
       box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
     }
-  
-    .sidebar .card:not(.highlight-card):hover .material-icons path {
-      fill: rgb(105, 103, 103);
+
+    .sidebar .addItin:not(.highlight-addItin):hover {
+      cursor: pointer;
+      transform: translateY(-3px);
+      box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
     }
-  
-    .card.highlight-card {
-      background-color: #2738cb;
-      color: rgb(255, 255, 255);
-      font-weight: 600;
-      border: none;
-      width: auto;
-      min-width: 30%;
-      position: relative;
-    }
-  
-    .card.card.highlight-card span {
-      margin-left: 1px;
-    }
-  
-    a,
-    a:visited,
-    a:hover {
-      color: #ffffff;
-      text-decoration: none;
-    }
-  
-    a:hover {
-      color: #125699;
-    }
-  
-    /* Responsive Styles */
-    @media screen and (max-width: 767px) {
-  
-      .card:not(.highlight-card) {
-        height: 16px;
-        margin: 8px 0;
-      }
-  
-      .card.highlight-card span {
-        margin-left: 72px;
-      }
-  
-    }
-  </style>
+</style>
 
 <div class="content" role="main">
-   
-    <!-- <div class="card highlight-card card-small">
-      <span>Welcome to (insert app title here)</span>
-    </div> -->
-
+ 
     <div class="sidebar">
-      <a class="card" routerLink="newitinerary">
+      <p style="color: white; justify-self: center; font-size: large;">Itineraries:</p>
+      <div class="Itinerary"></div>
+      <div class="Itinerary"></div>
+      <div class="Itinerary"></div>
+      <div class="Itinerary"></div>
+      <div class="Itinerary"></div>
+      <a class="addItin" onclick="
+        if(numItin < 5) {
+            numItin++;
+            console.log(`Number of Itineraries: ${numItin}`);   
+        }
+        else
+            alert('Maximum number of itinteraries reached, upgrade to premium for more');
+        ">
         <span>+</span>
       </a>
+    </div>
+    <div></div>
+    <div class="form">
+      New Itinerary
+    </div>
+</div>
   
-   </div>
+    <!-- <input type="hidden" #selection> -->
+  <script>
+    let numItin = 0;
 
-   
-    <p>Map Away</p>
-  
-    <input type="hidden" #selection>
-
-<h1>dashboard works!</h1>
+    const Itinerary = {
+        Name: test
+    }
+  </script>
