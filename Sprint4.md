@@ -1,6 +1,6 @@
 ## Work Completed
 
-**Josh Lamb** - Fixed CORS issues, implemented bcrypt for hashing passwords to store on database, implmeneted JWT token to send to the frontend, assisted Gabe with troubleshooting unit tests, assisted Tony with troubleshooting navigation between webpages on the frontend.
+**Josh Lamb** - Fixed CORS issues, implemented bcrypt for hashing passwords to store on database, implemented JWT token to send to the frontend, assisted Gabe with troubleshooting unit tests, assisted Tony with troubleshooting navigation between webpages on the frontend.
 
 **Gabriel Cortez** - Finished the itinerary struct and the functions with it, including a create and get function for the itineraries. Created some tests and got help from Josh to fix the tests. Set up the functions for the JWT token.
 
@@ -21,7 +21,7 @@ that the page is responsive on different screen sizes.
 
 
 ## Backend Unit Tests
-We have a unit test ofr RegisterUser that passes, and a test for Login that also passes. As for the itinerary tests, there is the test to CreateItinerary, which passes. However, for GetAllItineraries it says fail, but this is due to a problem with the formatting from switching a string to json and vice versa.
+We have a unit test of RegisterUser that passes, and a test for Login that also passes. As for the itinerary tests, there is the test to CreateItinerary, which passes. However, for GetAllItineraries it says fail, but this is due to a problem with the formatting from switching a string to json and vice versa.
 
 ## Backend API Documentation
 This API assumes that all responses are made with `Content-Type: application/json`
