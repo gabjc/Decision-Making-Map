@@ -6,13 +6,18 @@
 
 **Tony Gupta** - 
 
-**Lucas Mueller** - 
+**Lucas Mueller** - This sprint I designed and implemented the dashboard, this is the main user interface of our web app. I used HTML, CSS and Javascript in unison to enact the design I saw for our site. 
 
 
 ## Frontend Unit Tests and Cypress Tests
 
-we added three basic tests:
+we have tests to check the following:
 
+that the angular components we are using exist and have all the right values,
+that the routing between the different pages is functioning properly,
+that the page loads successfully and has the expected title and status code,
+that the page contains the expected content and that a specific element is visible and has the expected text,
+that the page is responsive on different screen sizes.
 
 
 ## Backend Unit Tests
