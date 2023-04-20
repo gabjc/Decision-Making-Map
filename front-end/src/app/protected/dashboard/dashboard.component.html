@@ -84,6 +84,18 @@
     margin-left: 10px;
   }
 
+  .add_Event {
+    border-radius: 4px;
+    border: 2px solid #462b69;
+    background-color: #2d42dd;
+    color:#ffffff;
+    height: 25px;
+    width: 75px;
+    transition: all 0.2s ease-in-out;
+    align-self: last baseline;
+    margin-left: 10px;
+  }
+
   .sidebar .Itinerary:not(.highlight-Itinerary):hover {
     cursor: pointer;
     transform: translateY(-3px);
@@ -100,6 +112,23 @@
     cursor: pointer;
     transform: translateY(-3px);
     box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
+  }
+
+  .form .add_Event:not(.highlight-add_Event):hover {
+    cursor: pointer;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
+  }
+
+  .event-input {
+    display: none;
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+
+  .example-full-width {
+    width: 100%;
   }
 </style>
 
@@ -119,6 +148,49 @@
   <div></div>
   <div id="inputform" class="form">
     <p >New Itinerary</p>
+    <form class="event-input" style="display: block;">
+      <mat-form-field class="example-full-width">
+        <mat-label>Itinerary Name:</mat-label>
+        <input matInput placeholder="Ex. Best Day Ever">
+      </mat-form-field>
+    </form>
+    <p >Add Events</p>
+    <form class="event-input" style="display: block;">
+      <mat-form-field class="example-full-width">
+        <mat-label>Event Name:</mat-label>
+        <input matInput placeholder="Ex. Play Fortnite">
+      </mat-form-field>
+    </form>
+
+    <form id="E2" class="event-input">
+      <mat-form-field class="example-full-width">
+        <mat-label>Event Name:</mat-label>
+        <input matInput placeholder="Ex. Eat Lucky Charms">
+      </mat-form-field>
+    </form>
+
+    <form id="E3" class="event-input">
+      <mat-form-field class="example-full-width">
+        <mat-label>Event Name:</mat-label>
+        <input matInput placeholder="Ex. Play Soccer">
+      </mat-form-field>
+    </form>
+
+    <form id="E4" class="event-input">
+      <mat-form-field class="example-full-width">
+        <mat-label>Event Name:</mat-label>
+        <input matInput placeholder="Ex. Chill at the Beach">
+      </mat-form-field>
+    </form>
+
+    <form id="E5" class="event-input">
+      <mat-form-field class="example-full-width">
+        <mat-label>Event Name:</mat-label>
+        <input matInput placeholder="Ex. Fancy Dinner">
+      </mat-form-field>
+    </form>
+
+    <div class="add_Event" onclick="addEvent()">Add Event</div>
     <div class="done" onclick="submitInfo()">Done</div>
   </div>
 </div>
@@ -126,13 +198,14 @@
   <!-- <input type="hidden" #selection> -->
   <script>
     let numItin = 0;
+    let numEvent = 1;
     let adding = false;
 
 
     function addItinerary() {
       if(numItin < 5) {
         numItin++;
-        console.log(`Number of Itineraries: ${numItin}`);   
+        console.log(`Number of Itineraries: ${numItin}`);
         if(adding === false) {
           adding = true;
           var x = document.getElementById("inputform");
@@ -141,8 +214,33 @@
       }
       else
         alert('Maximum number of itinteraries reached, upgrade to premium for more');
-      
     }
+
+    function addEvent() {
+      if(numEvent < 5) {
+        numEvent++;
+      console.log(`Number of Events: ${numEvent}`);
+      var y;
+      switch(numEvent) {
+        case 2:
+        y = document.getElementById("E2");
+        console.log(y);
+          break;
+        case 3:
+        y = document.getElementById("E3");
+          break;
+        case 4:
+        y = document.getElementById("E4");
+          break;
+        case 5:
+        y = document.getElementById("E5");
+          break;
+      }
+      y.style.display = "block";
+      }
+      else
+      alert('Maximum number of Events reached, upgrade to premium for more');
+  }
 
     function submitInfo() {
       adding = false;
@@ -165,7 +263,6 @@
         y = document.getElementById("I5");
           break;
       }
-      console.log(y);
       x.style.display = "none";
       y.style.display = "block";
     }
