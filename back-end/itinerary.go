@@ -2,20 +2,84 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
+	"html"
 	"net/http"
 	"strings"
 
-	"github.com/gorilla/mux"
+	"github.com/joshual55/Decision-Making-Map/vendor/github.com/gorilla/mux"
 )
 
 type Itinerary struct {
-	ItineraryID    string `json:"itin_id"`
-	Name           string `json:"name"`
-	Address        string `json:"address"`
-	Radius         string `json:"radius"`
-	SavedLocations string `json:"saved_locations"`
-	locationMap    map[string]int
+	ItinID     uint64 `gorm:"primary_key;auto_increment" json:"itin_id"`
+	ItinName   string `gorm:"size:255;not null;unique" json:"itin_name"`
+	SavedPlans string `gorm:"not null" json:"saved_plans"`
+	Creator    User   `json:"creator"`
+	CreatorID  uint32 `sql:"type:int REFERENCES users(id)" json:"creator_id"`
+}
+
+func (i *Itinerary) Prepare() {
+	i.ItinID = 0
+	i.ItinName = html.EscapeString(strings.TrimSpace(i.ItinName))
+	i.SavedPlans = html.EscapeString(strings.TrimSpace(i.SavedPlans))
+	i.Creator = User{}
+}
+
+func CreateItinerary(w http.ResponseWriter, r *http.Request) {
+	SetContentJson(w, r)
+
+	// pull itin info into struct from request and basic information
+	var itin Itinerary
+	itin.Prepare()
+
+	// create Itinerary in database
+	db.Create(&itin)
+
+	w.WriteHeader(http.StatusCreated)
+}
+
+// TODO: finish implementing route functions, create unit tests
+func GetItineraryByID(w http.ResponseWriter, r *http.Request) {
+	SetContentJson(w, r)
+
+	var itinerary Itinerary
+	err := db.First(&itinerary, "itinID = ?", itinerary.ItinID).Error
+
+	if err != nil { //no itinerary found with that id, return 404
+		w.WriteHeader(http.StatusNotFound)
+	} else {
+		json.NewEncoder(w).Encode(itinerary)
+	}
+}
+
+func GetAllItineraries(w http.ResponseWriter, r *http.Request) {
+	SetContentJson(w, r)
+
+	creatorID := mux.Vars(r)["id"]
+	var itineraries []Itinerary
+	err := db.Where("CreatorID = ?", creatorID).Find(&itineraries).Error
+
+	if err != nil || len(itineraries) <= 0 {
+		w.WriteHeader(http.StatusNotFound)
+	} else {
+		json.NewEncoder(w).Encode(itineraries)
+	}
+}
+
+/*
+ignore for now
+func (i *Itinerary) _PostItinerary(db *gorm.DB) (*Itinerary, error) {
+	var err error
+	err = db.Debug().Model(&Itinerary{}).Create(&i).Error
+	if err != nil {
+		return &Itinerary{}, err
+	}
+	if i.ItinID != 0 {
+		err = db.Debug().Model(&User{}).Where("id = ?", i.CreatorID).Take(&i.Creator).Error
+		if err != nil {
+			return &Itinerary{}, err
+		}
+	}
+	return i, nil
 }
 
 // Adds location to map
@@ -53,25 +117,9 @@ func CreateJsonFromMap(data map[string]int) string {
 	}
 	return ""
 }
+*/
 
-// Potentially used when a person presses a "New Itinerary" button
-func createNewItinerary() Itinerary {
-	//TODO: save this to a person
-	newItin := Itinerary{"", "Untitled Itinerary", "No Address", "No Radius", "", make(map[string]int)}
-	return newItin
-}
-
-// TODO: finish implementing route functions, create unit tests
-func GetItinerary(w http.ResponseWriter, r *http.Request) {
-	SetContentJson(w, r)
-
-	itineraryID := mux.Vars(r)["itineraryID"]
-	var itinerary Itinerary
-	db.First(&itinerary, "itinerary ID = ?", itineraryID)
-
-	json.NewEncoder(w).Encode(itinerary)
-}
-
+/*
 func PostItinerary(w http.ResponseWriter, r *http.Request) {
 	SetContentJson(w, r)
 
@@ -82,3 +130,4 @@ func PostItinerary(w http.ResponseWriter, r *http.Request) {
 
 	json.NewEncoder(w).Encode(itinerary)
 }
+*/

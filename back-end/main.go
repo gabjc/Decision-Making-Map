@@ -36,8 +36,8 @@ func InitRouter() {
 	r.HandleFunc("/user/login", Login).Methods("POST")
 
 	// itineraries
-	r.HandleFunc("/itinerary/get/{id}", GetItinerary).Methods("GET")
-	r.HandleFunc("/itinerary/post/{name}/{address}/{radius}", PostItinerary).Methods("POST")
+	r.HandleFunc("/itinerary/get/{id}", GetAllItineraries).Methods("GET")
+	r.HandleFunc("/itinerary/home", CreateItinerary).Methods("POST")
 	//r.HandleFunc("/refresh", Refresh)
 	//r.HandleFunc("/logout", Logout)
 
