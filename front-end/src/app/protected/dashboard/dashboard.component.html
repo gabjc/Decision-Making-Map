@@ -195,78 +195,83 @@
   </div>
 </div>
 
-  <!-- <input type="hidden" #selection> -->
-  <script>
-    let numItin = 0;
-    let numEvent = 1;
-    let adding = false;
+<script>
+let numItin = 0;
+let numEvent = 1;
+let adding = false;
 
 
-    function addItinerary() {
-      if(numItin < 5) {
-        numItin++;
-        console.log(`Number of Itineraries: ${numItin}`);
-        if(adding === false) {
-          adding = true;
-          var x = document.getElementById("inputform");
-          x.style.display = "block";
-        }
-      }
-      else
-        alert('Maximum number of itinteraries reached, upgrade to premium for more');
-    }
-
-    function addEvent() {
-      if(numEvent < 5) {
-        numEvent++;
-      console.log(`Number of Events: ${numEvent}`);
-      var y;
-      switch(numEvent) {
-        case 2:
-        y = document.getElementById("E2");
-        console.log(y);
-          break;
-        case 3:
-        y = document.getElementById("E3");
-          break;
-        case 4:
-        y = document.getElementById("E4");
-          break;
-        case 5:
-        y = document.getElementById("E5");
-          break;
-      }
-      y.style.display = "block";
-      }
-      else
-      alert('Maximum number of Events reached, upgrade to premium for more');
-  }
-
-    function submitInfo() {
-      adding = false;
+function addItinerary() {
+  if(numItin < 5 && adding === false) {
+    numItin++;
+    console.log(`Number of Itineraries: ${numItin}`);
+    if(adding === false) {
+      adding = true;
       var x = document.getElementById("inputform");
-      var y;
-      switch(numItin) {
-        case 1:
-        y = document.getElementById("I1");
-          break;
-        case 2:
-        y = document.getElementById("I2");
-          break;
-        case 3:
-        y = document.getElementById("I3");
-          break;
-        case 4:
-        y = document.getElementById("I4");
-          break;
-        case 5:
-        y = document.getElementById("I5");
-          break;
-      }
-      x.style.display = "none";
-      y.style.display = "block";
+      x.style.display = "block";
     }
-    // const Itinerary = {
-    //     Name: test
-    // }
-  </script>
+  }
+  else
+    alert('Maximum number of itinteraries reached, upgrade to premium for more');
+}
+
+function addEvent() {
+  if(numEvent < 5) {
+    numEvent++;
+    console.log(`Number of Events: ${numEvent}`);
+  var y;
+  switch(numEvent) {
+    case 2:
+    y = document.getElementById("E2");
+    console.log(y);
+      break;
+    case 3:
+    y = document.getElementById("E3");
+      break;
+    case 4:
+    y = document.getElementById("E4");
+      break;
+    case 5:
+    y = document.getElementById("E5");
+      break;
+  }
+  y.style.display = "block";
+  }
+  else
+  alert('Maximum number of Events reached, upgrade to premium for more');
+}
+
+function submitInfo() {
+  adding = false;
+  numEvent = 1;
+  var temp = document.getElementById("E2");
+  temp.style.display = "none";
+  var temp = document.getElementById("E3");
+  temp.style.display = "none";
+  var temp = document.getElementById("E4");
+  temp.style.display = "none";
+  var temp = document.getElementById("E5");
+  temp.style.display = "none";
+  var x = document.getElementById("inputform");
+  var y;
+  switch(numItin) {
+    case 1:
+    y = document.getElementById("I1");
+      break;
+    case 2:
+    y = document.getElementById("I2");
+      break;
+    case 3:
+    y = document.getElementById("I3");
+      break;
+    case 4:
+    y = document.getElementById("I4");
+      break;
+    case 5:
+    y = document.getElementById("I5");
+      break;
+  }
+  x.style.display = "none";
+  y.style.display = "block";
+}
+</script>
