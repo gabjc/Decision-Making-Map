@@ -1,6 +1,272 @@
-<br>
-<br>
-<br>
-<br>
-<br>
-<h1>dashboard works!</h1>
+<!-- <link rel="stylesheet" href="dashboard.component.css"> -->
+
+<style>
+  :host {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 14px;
+    color: #ffffff;
+    background-color: #424242;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .content {
+    display: grid;
+    grid-template-columns: 300px 10px 890px;
+    margin: 50px auto 32px;
+    padding: 0 16px;
+    max-width: 1200px;
+    flex-direction: column;
+    /* align-items: center; */
+    background-color: blue;
+  }
+  
+  .sidebar {
+    display: grid;
+    grid-template-rows:  15px 100px 100px 100px 100px 100px 100px;
+    justify-content: center;
+    margin-top: 16px;
+    background-color: red;
+    max-width: 300px;
+    height: 615px;
+    align-items: center;
+  }
+
+  .form {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    margin-top: 16px;
+    color: white;
+    background-color: rgb(1, 57, 58);
+    height: 600px;
+    max-width: 590px;
+  }
+
+  .addItin {
+    all: unset;
+    border-radius: 4px;
+    border: 2px solid #462b69;
+    background-color: #2d42dd;
+    color:#ffffff;
+    height: 30px;
+    width: 275px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease-in-out;
+    line-height: 24px;
+  }
+
+  .Itinerary {
+    display: none;
+    border-radius: 4px;
+    border: 2px solid #462b69;
+    background-color: #2d42dd;
+    color:#ffffff;
+    height: 75px;
+    width: 275px;
+    line-height: 24px;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .done {
+    border-radius: 4px;
+    border: 2px solid #462b69;
+    background-color: #2d42dd;
+    color:#ffffff;
+    height: 25px;
+    width: 50px;
+    transition: all 0.2s ease-in-out;
+    align-self: last baseline;
+    margin-left: 10px;
+  }
+
+  .add_Event {
+    border-radius: 4px;
+    border: 2px solid #462b69;
+    background-color: #2d42dd;
+    color:#ffffff;
+    height: 25px;
+    width: 75px;
+    transition: all 0.2s ease-in-out;
+    align-self: last baseline;
+    margin-left: 10px;
+  }
+
+  .sidebar .Itinerary:not(.highlight-Itinerary):hover {
+    cursor: pointer;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
+  }
+
+  .sidebar .addItin:not(.highlight-addItin):hover {
+    cursor: pointer;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
+  }
+
+  .form .done:not(.highlight-done):hover {
+    cursor: pointer;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
+  }
+
+  .form .add_Event:not(.highlight-add_Event):hover {
+    cursor: pointer;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
+  }
+
+  .event-input {
+    display: none;
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+
+  .example-full-width {
+    width: 100%;
+  }
+</style>
+
+<div class="content" role="main">
+
+  <div class="sidebar">
+    <p style="color: white; justify-self: center; font-size: large;">Itineraries:</p>
+    <div id="I1" class="Itinerary"></div>
+    <div id="I2" class="Itinerary"></div>
+    <div id="I3" class="Itinerary"></div>
+    <div id="I4" class="Itinerary"></div>
+    <div id="I5" class="Itinerary"></div>
+    <a class="addItin" onclick="addItinerary()">
+      <span>+</span>
+    </a>
+  </div>
+  <div></div>
+  <div id="inputform" class="form">
+    <p >New Itinerary</p>
+    <form class="event-input" style="display: block;">
+      <mat-form-field class="example-full-width">
+        <mat-label>Itinerary Name:</mat-label>
+        <input matInput placeholder="Ex. Best Day Ever">
+      </mat-form-field>
+    </form>
+    <p >Add Events</p>
+    <form class="event-input" style="display: block;">
+      <mat-form-field class="example-full-width">
+        <mat-label>Event Name:</mat-label>
+        <input matInput placeholder="Ex. Play Fortnite">
+      </mat-form-field>
+    </form>
+
+    <form id="E2" class="event-input">
+      <mat-form-field class="example-full-width">
+        <mat-label>Event Name:</mat-label>
+        <input matInput placeholder="Ex. Eat Lucky Charms">
+      </mat-form-field>
+    </form>
+
+    <form id="E3" class="event-input">
+      <mat-form-field class="example-full-width">
+        <mat-label>Event Name:</mat-label>
+        <input matInput placeholder="Ex. Play Soccer">
+      </mat-form-field>
+    </form>
+
+    <form id="E4" class="event-input">
+      <mat-form-field class="example-full-width">
+        <mat-label>Event Name:</mat-label>
+        <input matInput placeholder="Ex. Chill at the Beach">
+      </mat-form-field>
+    </form>
+
+    <form id="E5" class="event-input">
+      <mat-form-field class="example-full-width">
+        <mat-label>Event Name:</mat-label>
+        <input matInput placeholder="Ex. Fancy Dinner">
+      </mat-form-field>
+    </form>
+
+    <div class="add_Event" onclick="addEvent()">Add Event</div>
+    <div class="done" onclick="submitInfo()">Done</div>
+  </div>
+</div>
+
+  <!-- <input type="hidden" #selection> -->
+  <script>
+    let numItin = 0;
+    let numEvent = 1;
+    let adding = false;
+
+
+    function addItinerary() {
+      if(numItin < 5) {
+        numItin++;
+        console.log(`Number of Itineraries: ${numItin}`);
+        if(adding === false) {
+          adding = true;
+          var x = document.getElementById("inputform");
+          x.style.display = "block";
+        }
+      }
+      else
+        alert('Maximum number of itinteraries reached, upgrade to premium for more');
+    }
+
+    function addEvent() {
+      if(numEvent < 5) {
+        numEvent++;
+      console.log(`Number of Events: ${numEvent}`);
+      var y;
+      switch(numEvent) {
+        case 2:
+        y = document.getElementById("E2");
+        console.log(y);
+          break;
+        case 3:
+        y = document.getElementById("E3");
+          break;
+        case 4:
+        y = document.getElementById("E4");
+          break;
+        case 5:
+        y = document.getElementById("E5");
+          break;
+      }
+      y.style.display = "block";
+      }
+      else
+      alert('Maximum number of Events reached, upgrade to premium for more');
+  }
+
+    function submitInfo() {
+      adding = false;
+      var x = document.getElementById("inputform");
+      var y;
+      switch(numItin) {
+        case 1:
+        y = document.getElementById("I1");
+          break;
+        case 2:
+        y = document.getElementById("I2");
+          break;
+        case 3:
+        y = document.getElementById("I3");
+          break;
+        case 4:
+        y = document.getElementById("I4");
+          break;
+        case 5:
+        y = document.getElementById("I5");
+          break;
+      }
+      x.style.display = "none";
+      y.style.display = "block";
+    }
+    // const Itinerary = {
+    //     Name: test
+    // }
+  </script>

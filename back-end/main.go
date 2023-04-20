@@ -19,24 +19,27 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 )
 
 func InitRouter() {
+	allowedHeaders := handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"})
+	allowedOrigins := handlers.AllowedOrigins([]string{"http://localhost:4200"})
+	allowedMethods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE", "OPTIONS"})
+
 	r := mux.NewRouter()
 
-	//Users
+	// users
 	r.HandleFunc("/status", GetStatus).Methods("GET")
 	r.HandleFunc("/user/register", RegisterUser).Methods("POST")
 	r.HandleFunc("/user/login", Login).Methods("POST")
 
-	//Itineraries
-	r.HandleFunc("/itinerary/get/{id}", GetItinerary).Methods("GET")
-	r.HandleFunc("/itinerary/post/{name}/{address}/{radius}", PostItinerary).Methods("POST")
-	//r.HandleFunc("/refresh", Refresh)
-	//r.HandleFunc("/logout", Logout)
+	// itineraries
+	r.HandleFunc("/itinerary/get/{id}", GetAllItineraries).Methods("GET")
+	r.HandleFunc("/itinerary/home", CreateItinerary).Methods("POST")
 
-	log.Fatal(http.ListenAndServe(":9000", r))
+	log.Fatal(http.ListenAndServe(":9000", handlers.CORS(allowedHeaders, allowedOrigins, allowedMethods)(r)))
 }
 
 func main() {

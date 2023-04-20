@@ -22,7 +22,7 @@ export class signinComponent implements OnInit{
 
   ngOnInit() : void {
     this.registerForm = new FormGroup ({
-      username: new FormControl(null, [
+      name: new FormControl(null, [
         Validators.required
       ]),
       email: new FormControl(null, [
