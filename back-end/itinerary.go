@@ -6,12 +6,12 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/joshual55/Decision-Making-Map/vendor/github.com/gorilla/mux"
+	"github.com/gorilla/mux"
 )
 
 type Itinerary struct {
 	ItinID     uint64 `gorm:"primary_key;auto_increment" json:"itin_id"`
-	ItinName   string `gorm:"size:255;not null;unique" json:"itin_name"`
+	ItinName   string `gorm:"size:255;not null" json:"itin_name"`
 	SavedPlans string `gorm:"not null" json:"saved_plans"`
 	Creator    User   `json:"creator"`
 	CreatorID  uint32 `sql:"type:int REFERENCES users(id)" json:"creator_id"`
@@ -54,7 +54,7 @@ func GetItineraryByID(w http.ResponseWriter, r *http.Request) {
 func GetAllItineraries(w http.ResponseWriter, r *http.Request) {
 	SetContentJson(w, r)
 
-	creatorID := mux.Vars(r)["id"]
+	creatorID := mux.Vars(r)["creatorID"]
 	var itineraries []Itinerary
 	err := db.Where("CreatorID = ?", creatorID).Find(&itineraries).Error
 
