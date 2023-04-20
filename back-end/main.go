@@ -38,8 +38,6 @@ func InitRouter() {
 	// itineraries
 	r.HandleFunc("/itinerary/get/{id}", GetAllItineraries).Methods("GET")
 	r.HandleFunc("/itinerary/home", CreateItinerary).Methods("POST")
-	//r.HandleFunc("/refresh", Refresh)
-	//r.HandleFunc("/logout", Logout)
 
 	log.Fatal(http.ListenAndServe(":9000", handlers.CORS(allowedHeaders, allowedOrigins, allowedMethods)(r)))
 }

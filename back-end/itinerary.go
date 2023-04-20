@@ -29,6 +29,7 @@ func CreateItinerary(w http.ResponseWriter, r *http.Request) {
 
 	// pull itin info into struct from request and basic information
 	var itin Itinerary
+	DecodeJson(r, &itin)
 	itin.Prepare()
 
 	// create Itinerary in database
@@ -37,26 +38,27 @@ func CreateItinerary(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 }
 
-// TODO: finish implementing route functions, create unit tests
+// TODO: implement route for this, finish unit test
 func GetItineraryByID(w http.ResponseWriter, r *http.Request) {
 	SetContentJson(w, r)
 
-	var itinerary Itinerary
-	err := db.First(&itinerary, "itinID = ?", itinerary.ItinID).Error
+	var itin Itinerary
+	DecodeJson(r, &itin)
+	err := db.First(&itin, "itinID = ?", itin.ItinID).Error
 
 	if err != nil { //no itinerary found with that id, return 404
 		w.WriteHeader(http.StatusNotFound)
 	} else {
-		json.NewEncoder(w).Encode(itinerary)
+		json.NewEncoder(w).Encode(itin)
 	}
 }
 
 func GetAllItineraries(w http.ResponseWriter, r *http.Request) {
 	SetContentJson(w, r)
 
-	creatorID := mux.Vars(r)["creatorID"]
+	creatorID := mux.Vars(r)["id"]
 	var itineraries []Itinerary
-	err := db.Where("CreatorID = ?", creatorID).Find(&itineraries).Error
+	err := db.Where("creator_id = ?", creatorID).Find(&itineraries).Error
 
 	if err != nil || len(itineraries) <= 0 {
 		w.WriteHeader(http.StatusNotFound)

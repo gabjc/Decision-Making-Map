@@ -44,7 +44,7 @@ func TestLoginUser(t *testing.T) {
 
 	// create test router
 	router := mux.NewRouter()
-	router.HandleFunc("/user/login", RegisterUser).Methods("POST")
+	router.HandleFunc("/user/login", Login).Methods("POST")
 
 	// define test request
 	reqBody := strings.NewReader(`{"email": "test", "hash": "testpassword"}`)
