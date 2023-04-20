@@ -1,6 +1,6 @@
 ## Work Completed
 
-**Josh Lamb** - 
+**Josh Lamb** - Fixed CORS issues, implemented bcrypt for hashing passwords to store on database, implmeneted JWT token to send to the frontend, assisted Gabe with troubleshooting unit tests, assisted Tony with troubleshooting navigation between webpages on the frontend.
 
 **Gabriel Cortez** - Finished the itinerary struct and the functions with it, including a create and get function for the itineraries. Created some tests and got help from Josh to fix the tests. Set up the functions for the JWT token.
 
