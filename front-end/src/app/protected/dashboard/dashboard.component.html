@@ -93,14 +93,7 @@
       <div class="Itinerary"></div>
       <div class="Itinerary"></div>
       <div class="Itinerary"></div>
-      <a class="addItin" onclick="
-        if(numItin < 5) {
-            numItin++;
-            console.log(`Number of Itineraries: ${numItin}`);   
-        }
-        else
-            alert('Maximum number of itinteraries reached, upgrade to premium for more');
-        ">
+      <a class="addItin" onclick="addItinerary()">
         <span>+</span>
       </a>
     </div>
@@ -114,7 +107,15 @@
   <script>
     let numItin = 0;
 
-    const Itinerary = {
-        Name: test
+    function addItinerary() {
+      if(numItin < 5) {
+            numItin++;
+            console.log(`Number of Itineraries: ${numItin}`);   
+        }
+        else
+            alert('Maximum number of itinteraries reached, upgrade to premium for more');
     }
+    // const Itinerary = {
+    //     Name: test
+    // }
   </script>
