@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
       this.authService.login(email, password).subscribe(
         () => {
           //protected dashboard
-          this.router.navigate(['src/app/protected/dashboard'])
+          this.router.navigate(['../../protected/dashboard'])
         }
       );
     }

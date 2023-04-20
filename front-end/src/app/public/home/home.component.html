@@ -2,7 +2,8 @@
     :host {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
       font-size: 14px;
-      color: #333;
+      color: #ffffff;
+      background-color: #424242;
       box-sizing: border-box;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
@@ -21,10 +22,6 @@
       margin: 0;
     }
   
-    .spacer {
-      flex: 1;
-    }
-  
     .content {
       display: flex;
       margin: 82px auto 32px;
@@ -33,20 +30,7 @@
       flex-direction: column;
       align-items: center;
     }
-  
-    svg.material-icons {
-      height: 24px;
-      width: auto;
-    }
-  
-    svg.material-icons:not(:last-child) {
-      margin-right: 8px;
-    }
-  
-    .card svg.material-icons path {
-      fill: #888;
-    }
-  
+    
     .card-container {
       display: flex;
       flex-wrap: wrap;
@@ -57,8 +41,9 @@
     .card {
       all: unset;
       border-radius: 4px;
-      border: 1px solid #eee;
-      background-color: #fafafa;
+      border: 1px solid #462b69;
+      background-color: #2d42dd;
+      color:#ffffff;
       height: 40px;
       width: 200px;
       margin: 0 8px 16px;
@@ -69,10 +54,6 @@
       align-items: center;
       transition: all 0.2s ease-in-out;
       line-height: 24px;
-    }
-  
-    .card-container .card:not(:last-child) {
-      margin-right: 0;
     }
   
     .card.card-small {
@@ -94,8 +75,8 @@
     }
   
     .card.highlight-card {
-      background-color: #1976d2;
-      color: white;
+      background-color: #2738cb;
+      color: rgb(255, 255, 255);
       font-weight: 600;
       border: none;
       width: auto;
@@ -110,25 +91,12 @@
     a,
     a:visited,
     a:hover {
-      color: #1976d2;
+      color: #ffffff;
       text-decoration: none;
     }
   
     a:hover {
       color: #125699;
-    }
-  
-  
-    footer {
-      margin-top: 8px;
-      display: flex;
-      align-items: center;
-      line-height: 20px;
-    }
-  
-    footer a {
-      display: flex;
-      align-items: center;
     }
   
     /* Responsive Styles */

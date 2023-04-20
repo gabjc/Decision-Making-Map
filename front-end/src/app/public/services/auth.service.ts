@@ -15,8 +15,9 @@ export class AuthService {
   login(email: string, password: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/user/login`, {email: email, hash: password}, {headers: {'Content-Type': 'application/json'}}).pipe(
       map(response => {
-        if (response && response.token) {
-          localStorage.setItem('access_token', response.token);
+        console.log(response)
+        if (response) {
+          localStorage.setItem('access_token', response);
           localStorage.setItem('authenticated', 'true');
           this.authenticated = true;
           this.authenticated$.emit(true);
