@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/joshual55/Decision-Making-Map/vendor/github.com/gorilla/mux"
+	"github.com/gorilla/mux"
 )
 
 type Itinerary struct {
