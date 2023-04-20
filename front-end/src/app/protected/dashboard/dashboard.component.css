@@ -31,15 +31,16 @@
   }
 
   .form {
-    display: flex;
-    flex-wrap: wrap;
+    display: none;
     justify-content: center;
+    align-items: center;
     margin-top: 16px;
     color: white;
     background-color: rgb(1, 57, 58);
     height: 600px;
     max-width: 590px;
   }
+
   .addItin {
     all: unset;
     border-radius: 4px;
@@ -57,7 +58,7 @@
   }
 
   .Itinerary {
-    all: unset;
+    display: none;
     border-radius: 4px;
     border: 2px solid #462b69;
     background-color: #2d42dd;
@@ -66,6 +67,30 @@
     width: 275px;
     line-height: 24px;
     transition: all 0.2s ease-in-out;
+  }
+
+  .done {
+    border-radius: 4px;
+    border: 2px solid #462b69;
+    background-color: #2d42dd;
+    color:#ffffff;
+    height: 25px;
+    width: 50px;
+    transition: all 0.2s ease-in-out;
+    align-self: last baseline;
+    margin-left: 10px;
+  }
+
+  .add_Event {
+    border-radius: 4px;
+    border: 2px solid #462b69;
+    background-color: #2d42dd;
+    color:#ffffff;
+    height: 25px;
+    width: 75px;
+    transition: all 0.2s ease-in-out;
+    align-self: last baseline;
+    margin-left: 10px;
   }
 
   .sidebar .Itinerary:not(.highlight-Itinerary):hover {
@@ -78,4 +103,27 @@
     cursor: pointer;
     transform: translateY(-3px);
     box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
+  }
+
+  .form .done:not(.highlight-done):hover {
+    cursor: pointer;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
+  }
+
+  .form .add_Event:not(.highlight-add_Event):hover {
+    cursor: pointer;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
+  }
+
+  .event-input {
+    display: none;
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+
+  .example-full-width {
+    width: 100%;
   }
