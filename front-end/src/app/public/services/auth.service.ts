@@ -6,14 +6,14 @@ import { map, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:9000/';
+  private apiUrl = 'http://localhost:9000';
   authenticated = false;
   authenticated$: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private http: HttpClient) { }
 
   login(email: string, password: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/user/login`, { email: email, hash: password }, { headers: { 'Content-Type': 'application/json' } }).pipe(
+    return this.http.post<any>(`${this.apiUrl}/user/login`, {email: email, hash: password}, {headers: {'Content-Type': 'application/json'}}).pipe(
       map(response => {
         if (response && response.token) {
           localStorage.setItem('access_token', response.token);
@@ -27,12 +27,10 @@ export class AuthService {
   }
 
   register(name: string, email: string, password: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/user/register`, { name: name, email: email, hash: password }, { headers: { 'Content-Type': 'application/json' } });
+    return this.http.post<any>(`${this.apiUrl}/user/register`, {name: name, email: email, hash: password}, {headers: {'Content-Type': 'application/json'}});
   }
 
   isAuthenticated(): boolean {
     return this.authenticated;
   }
-
-
 }

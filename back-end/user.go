@@ -1,98 +1,62 @@
 package main
 
 import (
-	"encoding/json"
 	"net/http"
 
-	"github.com/glebarez/sqlite"
-	"github.com/gorilla/mux"
 	"gorm.io/gorm"
 )
 
 type User struct {
 	gorm.Model
-	Username string `json:"username"`
-	Password string `json:"password"`
-	Name     string `json:"name"`
+	ID               uint32 `json:"id"`
+	Name             string `json:"name"`
+	Email            string `json:"email"`
+	Hash             []byte `json:"hash"`
+	OwnedItineraries string `json:"owned_itineraries"`
+	//itinerariesMap   map[bool]int
 }
 
-var db *gorm.DB
-var err error
+// TODO: make sure user does not already exist, add frontend handling as well
+func RegisterUser(w http.ResponseWriter, r *http.Request) {
+	SetContentJson(w, r)
 
-func InitDB() {
-	db, err = gorm.Open(sqlite.Open("database.db"), &gorm.Config{})
-	if err != nil {
-		panic("Cannot connect to DB")
-	}
-	db.AutoMigrate(&User{})
-}
-
-var exists = struct{}{}
-
-// a set to find the itineraries that a user holds
-type set struct {
-	m map[string]struct{}
-}
-
-func NewSet() *set {
-	s := &set{}
-	s.m = make(map[string]struct{})
-	return s
-}
-
-func (s *set) Add(value string) {
-	s.m[value] = exists
-}
-
-func (s *set) Remove(value string) {
-	delete(s.m, value)
-}
-
-func (s *set) Contains(value string) bool {
-	_, c := s.m[value]
-	return c
-}
-
-/*
-// potential code that we can use to see if a user exists at all
-func (u User) Exists(id int) bool {
-	exists := false
-	for _, user := range u {
-		if user.ID == id {
-			return true
-		}
-	}
-	return exists
-}
-
-// FindByName returns the user with the given name, or returns an error
-func (u User) FindByName(name string) (User, error) {
-	for _, user := range u {
-		if user.Name == name {
-			return user, nil
-		}
-	}
-	return User{}, errors.New("USER_NOT_FOUND")
-}
-*/
-
-func GetUser(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-
-	username := mux.Vars(r)["username"]
+	// pull user info into struct from request
 	var user User
-	db.First(&user, "username = ?", username)
+	DecodeJson(r, &user)
 
-	json.NewEncoder(w).Encode(user)
-}
+	// convert password to hash
+	password := user.Hash
+	hash, err := HashPassword(string(password))
+	BackendError(err, "Error hashing password")
 
-func PostUser(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
+	// replace string password with hash in user struct
+	user.Hash = hash
 
-	params := mux.Vars(r)
-	user := User{Username: params["username"], Password: params["password"], Name: params["name"]}
-	json.NewDecoder(r.Body).Decode(&user)
+	// create user in database
 	db.Create(&user)
 
-	json.NewEncoder(w).Encode(user)
+	w.WriteHeader(http.StatusCreated)
+}
+
+func Login(w http.ResponseWriter, r *http.Request) {
+	SetContentJson(w, r)
+
+	// pull user info into struct from request
+	var user User
+	DecodeJson(r, &user)
+	password := string(user.Hash)
+
+	// find the user's hash in the database
+	var user2 User
+	err := db.First(&user2, "email = ?", user.Email).Error
+
+	if err != nil { // no user, return 404 Not Found
+		w.WriteHeader(http.StatusNotFound)
+	} else if !HashMatches(password, user2.Hash) { // hash doesn't match, return 403 Forbidden
+		w.WriteHeader(http.StatusForbidden)
+	} else { // else create JWT token, return it and 201 Created
+		tok, err := CreateToken(user2.ID)
+		BackendError(err, "Error creating JWT")
+		EncodeJson(w, http.StatusCreated, tok)
+	}
 }
