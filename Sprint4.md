@@ -4,7 +4,7 @@
 
 **Gabriel Cortez** - Finished the itinerary struct and the functions with it, including a create and get function for the itineraries. Created some tests and got help from Josh to fix the tests. Set up the functions for the JWT token.
 
-**Tony Gupta** - 
+**Tony Gupta** - I fully implemented the Login system so that it works, sending posts to the backend and receiving a JWT if the user exists that can be used to keep them logged in. This entailed successful implementation of an Auth Guard and HttpInterceptor.
 
 **Lucas Mueller** - This sprint I designed and implemented the dashboard, this is the main user interface of our web app. I used HTML, CSS and Javascript in unison to enact the design I saw for our site. 
 
